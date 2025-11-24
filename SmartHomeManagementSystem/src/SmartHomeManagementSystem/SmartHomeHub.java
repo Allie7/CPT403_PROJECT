@@ -147,6 +147,12 @@ public class SmartHomeHub {
         }
     }
 
+    protected void viewAllGroups()
+    {
+        for (DeviceGroup group : groups) {
+            System.out.println("Group " + group.getName() + " : " + group.toString());
+        }
+    }
 
     protected void controlDevice(String name,String state) {
         state = state.toLowerCase();

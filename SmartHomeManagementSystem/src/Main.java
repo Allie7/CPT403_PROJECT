@@ -35,10 +35,9 @@ public class Main {
         user.viewDeviceState("upstairs light");
         user.turnOffDevice("upstairs light");
         user.viewDeviceState("upstairs light");
-        user.removeDeviceFromHub("air conditioner2");
         //user.viewDeviceState("upstairs light");
         user.viewDeviceState("test");
-
-
+        user.viewAllGroups();
+        user.viewAllDevices();
     }
 }

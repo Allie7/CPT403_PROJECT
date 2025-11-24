@@ -57,7 +57,7 @@ public abstract class SmartDevice {
 
 
 
-    @Override
+
     public String toString() {
         return String.format("SmartDevice{name='%s', type='%s', state='%s'}",
                 this.name, this.type, this.state);
@@ -71,8 +71,5 @@ public abstract class SmartDevice {
         return name.equals(that.name) && type.equals(that.type);
     }
 
-    @Override
-    public int hashCode() {
-        return name.hashCode() * 31 + type.hashCode();
-    }
+
 }

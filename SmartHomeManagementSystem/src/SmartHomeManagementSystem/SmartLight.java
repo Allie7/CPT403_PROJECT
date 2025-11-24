@@ -36,5 +36,9 @@ public class SmartLight extends SmartDevice {
     public int getBrightness() {
         return brightness;
     }
-
+    @Override
+    public String toString() {
+        return String.format("SmartLight{name='%s', type='%s', state='%s', Brightness=%d}",
+                this.name, this.type, this.state, this.brightness);
+    }
 }

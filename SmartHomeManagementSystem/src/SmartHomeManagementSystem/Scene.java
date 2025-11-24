@@ -13,7 +13,7 @@ public class Scene {
     protected String state;
 
     // 构造方法
-    public Scene(String name, Map<String, SmartDevice> device_states) {
+    public Scene(String name, Map<String, String> device_states) {
         this.name = name;
         //this.description = "";
         /** build Scene by device_states map

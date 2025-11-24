@@ -29,6 +29,11 @@ public class User {
         hub.viewAllDevices();
     }
 
+    public void viewAllGroups()
+    {
+        hub.viewAllGroups();
+    }
+
     public void controlDevices(String name,String state)
     {
         hub.controlDevice(name, state);

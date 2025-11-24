@@ -31,4 +31,10 @@ public class SmartThermostat extends SmartDevice {
     public double getTemperature() {
         return temperature;
     }
+
+    @Override
+    public String toString() {
+        return String.format("SmartDevice{name='%s', type='%s', state='%s', Temperature=%f}",
+                this.name, this.type, this.state,this.temperature);
+    }
 }
