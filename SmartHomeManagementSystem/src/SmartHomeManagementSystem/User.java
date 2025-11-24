@@ -42,28 +42,50 @@ public class User {
     {
         this.hub.controlDevice(name, num);
     }
-
-    public void createGroup(String name, List<SmartDevice> devices)
+    public void controlDevices(String name,double num)
     {
-        DeviceGroup newGroups = new DeviceGroup(name,devices);
+        this.hub.controlDevice(name, num);
     }
 
-    //add devices to hub
+    /**
+    add & create group
+     **/
+    public void createGroup(String name, List<SmartDevice> devices)
+    {
+        String checkType = devices.get(0).getType();
+        for(SmartDevice device : devices){
+            if (!device.getType().equals(checkType)){
+                throw new IllegalArgumentException("The device type does not match");
+            }
+        }
+
+        DeviceGroup newGroups = new DeviceGroup(name,devices);
+        this.hub.addGroup(newGroups);
+    }
+
+    //add devices trhough name
     public void addDeviceToHub(String device_name){
         this.hub.addDevice(device_name);
     }
+    //add
+    public void addDeviceToHub(SmartDevice device){
+        this.hub.addDevice(device);
+    }
 
+    public void addGroupToHub(String device_name){
+        this.hub.addDevice(device_name);
+    }
     //delete devices to hub
     public void removeDeviceFromHub(String device_name){
         this.hub.removeDevice(device_name);
     }
 
-    //
-    public void addGroupToHub(String group_name){
-        this.hub.addGroup(group_name);
-    }
+
     public void removeGroupFromHub(String group_name){
         this.hub.removeGroup(group_name);
+    }
+    public void removeGroupFromHub(DeviceGroup group){
+        this.hub.removeGroup(group);
     }
 
     // pass the desired state using device_states map
@@ -134,4 +156,5 @@ public class User {
     public void viewDeviceState(String device_name){
         this.hub.viewDeviceState(device_name);
     }
+
 }

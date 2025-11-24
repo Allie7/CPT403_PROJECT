@@ -8,10 +8,10 @@ public class SmartLight extends SmartDevice {
         this.brightness = 100; // 默认亮度
     }
 
-    // Setter 方法
+
     public void setState(String state) {
         this.state = state;
-    }
+    }    // Setter 方法
 
     /**
      * kind of redundant
@@ -19,26 +19,22 @@ public class SmartLight extends SmartDevice {
     @Override
     public void turnOn() {
         setState("on");
-        System.out.println(getName() + " 灯已开启，亮度: " + brightness + "%");
     }
 
     @Override
     public void turnOff() {
         setState("off");
-        System.out.println(getName() + " 灯已关闭");
     }
 
     // 特定于灯的方法
     public void setBrightness(int brightness) {
         if (brightness >= 0 && brightness <= 100) {
             this.brightness = brightness;
-            if (isOn()) {
-                System.out.println(getName() + " 亮度调整为: " + brightness + "%");
-            }
         }
     }
 
     public int getBrightness() {
         return brightness;
     }
+
 }
