@@ -26,6 +26,8 @@ public class Main {
         user.turnOffDevice("air conditioner");
         user.viewDeviceState("air conditioner");
         user.createGroup("test",devices2);
+        user.viewDeviceState("test");
+        user.manageGroup("test","on");
 
     }
 }

@@ -63,10 +63,13 @@ public class SmartHomeHub {
     protected void addGroup(DeviceGroup group) {
 
         if (group != null && !groups.contains(group)) {
+
+            for (SmartDevice device : group.devices) {
+                if (!devices.contains(device)) {
+                    devices.add(device);
+                }
+            }
             groups.add(group);
-            // To do: (may be check if the device in the group is in this.devices, if no then add
-            //...
-            //...
         }
     }
     protected void removeGroup(String group_name) {
@@ -134,7 +137,7 @@ public class SmartHomeHub {
 
     protected void viewAllDevices()
     {
-        for (SmartDevice device : this.devices) {
+        for (SmartDevice device : devices) {
             System.out.println( device.toString() );
         }
     }
@@ -229,7 +232,8 @@ public class SmartHomeHub {
                 DeviceGroup currentGroup = getGroupByName(name);
                 if (currentGroup != null) {
                     System.out.println(name + " member states:");
-                    for (SmartDevice currentDevice : currentGroup.getDevices()) {
+                    for (SmartDevice currentDevice : currentGroup.devices) {
+
                         viewSingleDevice(currentDevice);
                     }
                 }

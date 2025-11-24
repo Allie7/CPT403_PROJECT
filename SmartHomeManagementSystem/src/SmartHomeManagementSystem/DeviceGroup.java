@@ -6,7 +6,7 @@ import java.util.List;
 public class DeviceGroup {
     // 私有属性
     private String name;
-    private List<SmartDevice> devices;
+    protected List<SmartDevice> devices;
     private String type;
 
     // 构造方法
@@ -16,7 +16,7 @@ public class DeviceGroup {
          */
         this.type = devices.get(0).getType();
         this.name = name;
-        this.devices = new ArrayList<SmartDevice>();
+        this.devices = devices;
     }
 
     // Getter 方法
@@ -49,6 +49,14 @@ public class DeviceGroup {
                 device.setState(state);
             }
         }
+    }
+    // 批量操作方法
+    public String toString() {
+        String toString = "";
+        for (SmartDevice device : devices) {
+            toString = toString.concat(device.toString());
+        }
+        return toString;
     }
 
     public void applyToAll(Integer brightness) {

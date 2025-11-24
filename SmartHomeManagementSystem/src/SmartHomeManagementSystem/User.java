@@ -25,12 +25,12 @@ public class User {
 
     public void viewAllDevices()
     {
-        this.hub.viewAllDevices();
+        hub.viewAllDevices();
     }
 
     public void controlDevices(String name,String state)
     {
-        this.hub.controlDevice(name, state);
+        hub.controlDevice(name, state);
     }
 
     /**
@@ -40,11 +40,11 @@ public class User {
      */
     public void controlDevices(String name,Integer num)
     {
-        this.hub.controlDevice(name, num);
+        hub.controlDevice(name, num);
     }
     public void controlDevices(String name,double num)
     {
-        this.hub.controlDevice(name, num);
+        hub.controlDevice(name, num);
     }
 
     /**
@@ -58,41 +58,40 @@ public class User {
                 throw new IllegalArgumentException("The device type does not match");
             }
         }
-
         DeviceGroup newGroups = new DeviceGroup(name,devices);
-        this.hub.addGroup(newGroups);
+        hub.addGroup(newGroups);
     }
 
     //add devices trhough name
     public void addDeviceToHub(String device_name){
-        this.hub.addDevice(device_name);
+        hub.addDevice(device_name);
     }
     //add
     public void addDeviceToHub(SmartDevice device){
-        this.hub.addDevice(device);
+        hub.addDevice(device);
     }
 
     public void addGroupToHub(String device_name){
-        this.hub.addDevice(device_name);
+        hub.addDevice(device_name);
     }
     //delete devices to hub
     public void removeDeviceFromHub(String device_name){
-        this.hub.removeDevice(device_name);
+        hub.removeDevice(device_name);
     }
 
 
     public void removeGroupFromHub(String group_name){
-        this.hub.removeGroup(group_name);
+        hub.removeGroup(group_name);
     }
     public void removeGroupFromHub(DeviceGroup group){
-        this.hub.removeGroup(group);
+        hub.removeGroup(group);
     }
 
     // pass the desired state using device_states map
     public Scene createScene(String name, Map<String,String> device_states)
     {
         Scene newScene = new Scene(name,device_states);
-        this.hub.addScene(newScene);
+        hub.addScene(newScene);
         return newScene;
     }
 
@@ -104,7 +103,7 @@ public class User {
 
     public void runScene(String name)
     {
-        this.hub.executeScene(name);
+        hub.executeScene(name);
     }
 
     /** TURN ON device shortcut
@@ -112,49 +111,49 @@ public class User {
      * @param state
      */
     public void turnOnGroup(String group_name){
-        this.hub.manageGroup(group_name,"ON");
+        hub.manageGroup(group_name,"ON");
     }
 
     public void turnOnDevice(String device_name){
-        this.hub.controlDevice(device_name,"ON");
+        hub.controlDevice(device_name,"ON");
     }
 
 
     public void turnOffGroup(String group_name){
-        this.hub.manageGroup(group_name,"OFF");
+        hub.manageGroup(group_name,"OFF");
     }
 
     public void turnOffDevice(String device_name){
-        this.hub.controlDevice(device_name,"OFF");
+        hub.controlDevice(device_name,"OFF");
     }
 
     public void lockDevice(String device_name){
-        this.hub.controlDevice(device_name,"LOCKED");
+        hub.controlDevice(device_name,"LOCKED");
     }
 
     public void unlockDevice(String device_name){
-        this.hub.controlDevice(device_name,"UNLOCKED");
+        hub.controlDevice(device_name,"UNLOCKED");
     }
 
     public void lockGroup(String group_name){
-        this.hub.manageGroup(group_name,"LOCKED");
+        hub.manageGroup(group_name,"LOCKED");
     }
 
     public void unlockGroup(String group_name){
-        this.hub.manageGroup(group_name,"UNLOCKED");
+        hub.manageGroup(group_name,"UNLOCKED");
     }
 
 
     public void manageGroup(String name,String state)
     {
-        this.hub.manageGroup(name,state);
+        hub.manageGroup(name,state);
     }
 
     /** specified device name or "ALL"
      *
      */
     public void viewDeviceState(String device_name){
-        this.hub.viewDeviceState(device_name);
+        hub.viewDeviceState(device_name);
     }
 
 }
