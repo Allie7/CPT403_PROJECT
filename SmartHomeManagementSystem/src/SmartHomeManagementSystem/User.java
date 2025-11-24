@@ -1,5 +1,6 @@
 package SmartHomeManagementSystem;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -38,7 +39,7 @@ public class User {
      * @param name
      * @param num
      */
-    public void controlDevices(String name,Integer num)
+    public void controlDevices(String name,int num)
     {
         hub.controlDevice(name, num);
     }
@@ -88,7 +89,7 @@ public class User {
     }
 
     // pass the desired state using device_states map
-    public Scene createScene(String name, Map<String,String> device_states)
+    public Scene createScene(String name, Map<String, String> device_states)
     {
         Scene newScene = new Scene(name,device_states);
         hub.addScene(newScene);
@@ -149,7 +150,7 @@ public class User {
         hub.manageGroup(name,state);
     }
 
-    /** specified device name or "ALL"
+    /** specified device name, group name or "ALL"
      *
      */
     public void viewDeviceState(String device_name){

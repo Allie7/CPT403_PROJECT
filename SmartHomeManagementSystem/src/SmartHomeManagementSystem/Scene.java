@@ -2,7 +2,6 @@ package SmartHomeManagementSystem;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.HashMap;
 import java.util.Map;
 
 // Scene 类实现
@@ -14,7 +13,7 @@ public class Scene {
     protected String state;
 
     // 构造方法
-    public Scene(String name, Map<String,String> device_states) {
+    public Scene(String name, Map<String, SmartDevice> device_states) {
         this.name = name;
         //this.description = "";
         /** build Scene by device_states map

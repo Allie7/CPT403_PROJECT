@@ -41,6 +41,11 @@ public class SmartHomeHub {
         SmartDevice device = findDeviceByName(name);
         if (device != null) {
             devices.remove(device);
+            for (DeviceGroup group : groups) {
+                if (group.devices.contains(device)) {
+                    group.removeDevice(device);
+                }
+            }
         }
     }
 
@@ -149,7 +154,7 @@ public class SmartHomeHub {
         if (currentDevice != null) {
             currentDevice.setState(state);
         } else {
-            throw new IllegalArgumentException("device not found");
+            throw new IllegalArgumentException("device "+name+" not found");
         }
     }
 
@@ -158,13 +163,13 @@ public class SmartHomeHub {
      * @param name
      * @param brightness
      */
-    protected void controlDevice(String name,Integer brightness) {
+    protected void controlDevice(String name,int brightness) {
         SmartDevice currentDevice = findDeviceByName(name);
         if (currentDevice != null && currentDevice instanceof SmartLight) {
             currentDevice.turnOn();
             ((SmartLight) currentDevice).setBrightness(brightness);
         } else {
-            throw new IllegalArgumentException("light not found");
+            throw new IllegalArgumentException("light "+ name +"not found");
         }
     }
     protected void controlDevice(String name,Double temperature) {
@@ -173,7 +178,7 @@ public class SmartHomeHub {
             currentDevice.turnOn();
             ((SmartThermostat) currentDevice).setTemperature(temperature);
         } else {
-            throw new IllegalArgumentException("themostat not found");
+            throw new IllegalArgumentException("themostat "+ name+" not found");
         }
     }
     /**
@@ -193,7 +198,7 @@ public class SmartHomeHub {
         }
     }
 
-    public void manageGroup(String name, Integer brightness) {
+    public void manageGroup(String name, int brightness) {
         DeviceGroup currentGroup = getGroupByName(name);
         if (currentGroup != null && currentGroup.getType() == "Light") {
             currentGroup.applyToAll("ON");
@@ -203,9 +208,9 @@ public class SmartHomeHub {
     public void viewSingleDevice(SmartDevice currentDevice) {
         if (currentDevice != null) {
             System.out.printf(currentDevice.getName() + " is " + currentDevice.getState());
-            if (currentDevice instanceof SmartLight) {
+            if (currentDevice instanceof SmartLight && currentDevice.getState().equals("on")){
                 System.out.println(" and current brightness is " + ((SmartLight) currentDevice).getBrightness());
-            } else if (currentDevice instanceof SmartThermostat) {
+            } else if (currentDevice instanceof SmartThermostat && currentDevice.getState().equals("on")) {
                 System.out.println(" and current temperature is " + ((SmartThermostat) currentDevice).getTemperature());
             } else{
                 System.out.println("");
@@ -238,7 +243,7 @@ public class SmartHomeHub {
                     }
                 }
             } else {
-                throw new IllegalArgumentException("name not found");
+                throw new IllegalArgumentException("name " + name +" not found");
             }
         }
     }

@@ -27,7 +27,18 @@ public class Main {
         user.viewDeviceState("air conditioner");
         user.createGroup("test",devices2);
         user.viewDeviceState("test");
-        user.manageGroup("test","on");
+        user.manageGroup("test","off");
+        user.viewDeviceState("test");
+        user.viewDeviceState("air conditioner");
+        user.viewDeviceState("air conditioner2");
+        user.controlDevices("upstairs light", 99);
+        user.viewDeviceState("upstairs light");
+        user.turnOffDevice("upstairs light");
+        user.viewDeviceState("upstairs light");
+        user.removeDeviceFromHub("air conditioner2");
+        //user.viewDeviceState("upstairs light");
+        user.viewDeviceState("test");
+
 
     }
 }
