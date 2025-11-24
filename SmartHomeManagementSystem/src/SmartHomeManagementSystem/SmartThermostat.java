@@ -7,7 +7,10 @@ public class SmartThermostat extends SmartDevice {
     public SmartThermostat(String name) {
         super(name, "Thermostat");
         this.temperature = 22.0; // 默认温度
-        this.mode = "auto";
+        /**
+         * mode is unncessary
+         */
+        // this.mode = "auto";
     }
 
     @Override

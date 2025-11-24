@@ -132,6 +132,83 @@ public class SmartHomeHub {
             throw new IllegalArgumentException("device not found");
         }
     }
+
+    /** Set lighting brightness
+     *
+     * @param name
+     * @param brightness
+     */
+    protected void controlDevice(String name,Integer brightness) {
+        SmartDevice currentDevice = findDeviceByName(name);
+        if (currentDevice != null && currentDevice instanceof SmartLight) {
+            currentDevice.setState("ON");
+            ((SmartLight) currentDevice).setBrightness(brightness);
+        } else {
+            throw new IllegalArgumentException("light not found");
+        }
+    }
+    protected void controlDevice(String name,Double temperature) {
+        SmartDevice currentDevice = findDeviceByName(name);
+        if (currentDevice != null && currentDevice instanceof SmartThermostat) {
+            currentDevice.setState("ON");
+            ((SmartThermostat) currentDevice).setTemperature(temperature);
+        } else {
+            throw new IllegalArgumentException("themostat not found");
+        }
+    }
+    /**
+     * **/
+    public void manageGroup(String name, String state) {
+        DeviceGroup currentGroup = getGroupByName(name);
+        if (currentGroup != null) {
+            currentGroup.applyToAll(state);
+        }
+    }
+
+    public void manageGroup(String name, Double temperature) {
+        DeviceGroup currentGroup = getGroupByName(name);
+        if (currentGroup != null && currentGroup.getType() == "Light") {
+            currentGroup.applyToAll("ON");
+            currentGroup.applyToAll(temperature);
+        }
+    }
+
+    public void manageGroup(String name, Integer brightness) {
+        DeviceGroup currentGroup = getGroupByName(name);
+        if (currentGroup != null && currentGroup.getType() == "Light") {
+            currentGroup.applyToAll("ON");
+            currentGroup.applyToAll(brightness);
+        }
+    }
+    /*
+
+     */
+    public void viewDeviceState(String name) {
+        if (name.equals("ALL")) {
+            for (SmartDevice currentDevice : devices) {
+                System.out.println( "device" + name + " is" +currentDevice.getState());
+            }
+        }
+        else {
+        SmartDevice currentDevice = findDeviceByName(name);
+        if (currentDevice != null) {
+            System.out.printf(name + " is" + currentDevice.getState());
+
+        }
+        else {
+            DeviceGroup currentGroup = getGroupByName(name);
+            if (currentGroup != null) {
+                System.out.println(name + " member states:");
+                for (SmartDevice device : currentGroup.getDevices()){
+                    System.out.printf(name + " is" + device.getState());
+                }
+            }
+        }
+        }
+    }
+
+
+
 }
 
 

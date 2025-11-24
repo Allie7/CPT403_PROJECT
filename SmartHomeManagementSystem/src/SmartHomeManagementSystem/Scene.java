@@ -11,6 +11,7 @@ public class Scene {
     private String name;
     private String description;
     private List<SceneAction> actions;
+    protected String state;
 
     // 构造方法
     public Scene(String name, Map<String,String> device_states) {

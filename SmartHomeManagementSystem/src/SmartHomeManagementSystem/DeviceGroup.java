@@ -7,9 +7,14 @@ public class DeviceGroup {
     // 私有属性
     private String name;
     private List<SmartDevice> devices;
+    private String type;
 
     // 构造方法
     public DeviceGroup(String name, List<SmartDevice> devices) {
+        /**
+         *check if the devices have the same type(important)
+         */
+        this.type = devices.get(0).getType();
         this.name = name;
         this.devices = new ArrayList<SmartDevice>();
     }
@@ -19,6 +24,10 @@ public class DeviceGroup {
         return name;
     }
 
+    // Getter 方法
+    public String getType() {
+        return type;
+    }
     // 设备管理方法
     public void addDevice(SmartDevice device) {
         if (device != null && !devices.contains(device)) {
@@ -37,27 +46,31 @@ public class DeviceGroup {
         for (SmartDevice device : devices) {
             if (state != null) {
                 // 根据状态字符串执行相应操作
-                switch (state.toLowerCase()) {
-                    case "on":
-                    case "turnon":
-                        device.turnOn();
-                        break;
-                    case "off":
-                    case "turnoff":
-                        device.turnOff();
-                        break;
-                    case "toggle":
-                        if (device.isOn()) {
-                            device.turnOff();
-                        } else {
-                            device.turnOn();
-                        }
-                        break;
-                    default:
-                        // 如果有自定义状态，可以在这里扩展
-                        System.out.println("Unknown state: " + state);
-                        break;
-                }
+                device.setState(state);
+            }
+        }
+    }
+
+    public void applyToAll(Integer brightness) {
+        applyToAll("on");
+        for (SmartDevice device : devices) {
+            if (device instanceof SmartLight) {
+                ((SmartLight) device).setBrightness(brightness);
+            }
+            else {
+                throw new IllegalArgumentException("type not correct");
+            }
+        }
+    }
+
+    public void applyToAll(Double temperature) {
+        applyToAll("on");
+        for (SmartDevice device : devices) {
+            if (device instanceof SmartThermostat) {
+                ((SmartThermostat) device).setTemperature(temperature);
+            }
+            else {
+                throw new IllegalArgumentException("type not correct");
             }
         }
     }
@@ -78,4 +91,5 @@ public class DeviceGroup {
     public void clearDevices() {
         devices.clear();
     }
+
 }

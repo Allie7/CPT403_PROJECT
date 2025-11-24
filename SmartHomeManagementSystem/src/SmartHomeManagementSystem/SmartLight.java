@@ -8,6 +8,14 @@ public class SmartLight extends SmartDevice {
         this.brightness = 100; // 默认亮度
     }
 
+    // Setter 方法
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    /**
+     * kind of redundant
+     */
     @Override
     public void turnOn() {
         setState("on");

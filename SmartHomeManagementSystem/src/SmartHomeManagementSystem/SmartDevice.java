@@ -11,7 +11,7 @@ public abstract class SmartDevice {
     protected String name;
     protected String type;
     protected String state;
-    public static String[] legalStates = {"ON","OFF"};
+    public static String[] legalStates = {"on","off"};
 
     // 构造方法
     public SmartDevice(String name, String type) {
@@ -38,7 +38,7 @@ public abstract class SmartDevice {
         this.state = state;
     }
 
-    // 抽象方法 - 必须由子类实现
+    // kind of redundant
     public abstract void turnOn();
     public abstract void turnOff();
 
@@ -54,6 +54,8 @@ public abstract class SmartDevice {
             turnOn();
         }
     }
+
+
 
     @Override
     public String toString() {

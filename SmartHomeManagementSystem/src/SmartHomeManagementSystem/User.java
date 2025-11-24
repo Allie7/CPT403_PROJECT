@@ -1,7 +1,6 @@
 package SmartHomeManagementSystem;
 
 import java.util.List;
-import java.util.HashMap;
 import java.util.Map;
 
 public class User {
@@ -32,6 +31,16 @@ public class User {
     public void controlDevices(String name,String state)
     {
         this.hub.controlDevice(name, state);
+    }
+
+    /**
+     * Allow  light objects to be passed directly a interger value (percentage)
+     * @param name
+     * @param num
+     */
+    public void controlDevices(String name,Integer num)
+    {
+        this.hub.controlDevice(name, num);
     }
 
     public void createGroup(String name, List<SmartDevice> devices)
@@ -76,5 +85,53 @@ public class User {
         this.hub.executeScene(name);
     }
 
+    /** TURN ON device shortcut
+     * @param name
+     * @param state
+     */
+    public void turnOnGroup(String group_name){
+        this.hub.manageGroup(group_name,"ON");
+    }
 
+    public void turnOnDevice(String device_name){
+        this.hub.controlDevice(device_name,"ON");
+    }
+
+
+    public void turnOffGroup(String group_name){
+        this.hub.manageGroup(group_name,"OFF");
+    }
+
+    public void turnOffDevice(String device_name){
+        this.hub.controlDevice(device_name,"OFF");
+    }
+
+    public void lockDevice(String device_name){
+        this.hub.controlDevice(device_name,"LOCKED");
+    }
+
+    public void unlockDevice(String device_name){
+        this.hub.controlDevice(device_name,"UNLOCKED");
+    }
+
+    public void lockGroup(String group_name){
+        this.hub.manageGroup(group_name,"LOCKED");
+    }
+
+    public void unlockGroup(String group_name){
+        this.hub.manageGroup(group_name,"UNLOCKED");
+    }
+
+
+    public void manageGroup(String name,String state)
+    {
+        this.hub.manageGroup(name,state);
+    }
+
+    /** specified device name or "ALL"
+     *
+     */
+    public void viewDeviceState(String device_name){
+        this.hub.viewDeviceState(device_name);
+    }
 }
