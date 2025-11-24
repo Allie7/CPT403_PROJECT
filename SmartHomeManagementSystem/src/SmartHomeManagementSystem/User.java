@@ -117,20 +117,20 @@ public class User {
      * @param state
      */
     public void turnOnGroup(String group_name){
-        hub.manageGroup(group_name,"ON");
+        hub.manageGroup(group_name,"on");
     }
 
     public void turnOnDevice(String device_name){
-        hub.controlDevice(device_name,"ON");
+        hub.controlDevice(device_name,"on");
     }
 
 
     public void turnOffGroup(String group_name){
-        hub.manageGroup(group_name,"OFF");
+        hub.manageGroup(group_name,"off");
     }
 
     public void turnOffDevice(String device_name){
-        hub.controlDevice(device_name,"OFF");
+        hub.controlDevice(device_name,"off");
     }
 
     public void lockDevice(String device_name){
@@ -154,6 +154,17 @@ public class User {
     {
         hub.manageGroup(name,state);
     }
+
+    public void manageGroup(String name,int brightness)
+    {
+        hub.manageGroup(name,brightness);
+    }
+
+    public void manageGroup(String name,double temperature)
+    {
+        hub.manageGroup(name,temperature);
+    }
+
 
     /** specified device name, group name or "ALL"
      *

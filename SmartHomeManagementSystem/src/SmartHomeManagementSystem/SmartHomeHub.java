@@ -193,14 +193,18 @@ public class SmartHomeHub {
         DeviceGroup currentGroup = getGroupByName(name);
         if (currentGroup != null) {
             currentGroup.applyToAll(state);
+        } else  {
+            throw new IllegalArgumentException("group "+name+" not found");
         }
     }
 
     public void manageGroup(String name, Double temperature) {
         DeviceGroup currentGroup = getGroupByName(name);
-        if (currentGroup != null && currentGroup.getType() == "Light") {
+        if (currentGroup != null && currentGroup.getType() == "Thermostat") {
             currentGroup.applyToAll("ON");
             currentGroup.applyToAll(temperature);
+        } else  {
+            throw new IllegalArgumentException("group "+name+" not found");
         }
     }
 
@@ -209,6 +213,8 @@ public class SmartHomeHub {
         if (currentGroup != null && currentGroup.getType() == "Light") {
             currentGroup.applyToAll("ON");
             currentGroup.applyToAll(brightness);
+        } else   {
+            throw new IllegalArgumentException("group "+name+" not found");
         }
     }
     public void viewSingleDevice(SmartDevice currentDevice) {

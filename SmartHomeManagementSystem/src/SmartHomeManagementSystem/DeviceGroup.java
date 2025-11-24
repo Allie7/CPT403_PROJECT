@@ -54,7 +54,7 @@ public class DeviceGroup {
     public String toString() {
         String toString = "";
         for (SmartDevice device : devices) {
-            toString = toString.concat(device.toString());
+            toString = toString.concat(device.toString()) + " ";
         }
         return toString;
     }
