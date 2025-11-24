@@ -14,7 +14,7 @@ public class SmartLock extends SmartDevice {
      * @param name 门锁名称
      */
     public SmartLock(String name) {
-        super(name, "SmartLock");
+        super(name, "Lock");
         this.isLocked = true; // 默认上锁状态
         this.lockState = "locked";
         setState("locked"); // 设置父类的state属性
