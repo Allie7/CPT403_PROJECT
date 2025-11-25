@@ -1,7 +1,11 @@
 package SmartHomeManagementSystem;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SmartLight extends SmartDevice {
     private int brightness; // 亮度 0-100
+    private static ArrayList<String> legal_states = new ArrayList<>(List.of("on","off"));
 
     public SmartLight(String name) {
         super(name, "Light");

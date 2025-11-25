@@ -1,16 +1,17 @@
 package SmartHomeManagementSystem;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 智能门锁类 - SmartDevice的具体实现
  * 继承自抽象类SmartDevice，提供门锁特定的功能
  */
 public class SmartLock extends SmartDevice {
     private boolean isLocked;
-
+    private static ArrayList<String> legal_states = new ArrayList<>(List.of("lock","unlock"));
     /**
-     * 构造方法
      *
-     * @param name 门锁名称
      */
     public SmartLock(String name) {
         super(name, "Lock");

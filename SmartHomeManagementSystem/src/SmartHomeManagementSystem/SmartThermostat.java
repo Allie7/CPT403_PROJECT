@@ -1,16 +1,16 @@
 package SmartHomeManagementSystem;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SmartThermostat extends SmartDevice {
     private double temperature;
-    private String mode; // heat, cool, auto
+    private static ArrayList<String> legal_states = new ArrayList<>(List.of("on","off"));
 
     public SmartThermostat(String name) {
         super(name, "Thermostat");
         this.temperature = 22.0; // 默认温度
-        /**
-         * mode is unncessary
-         */
-        // this.mode = "auto";
+
     }
 
     @Override
