@@ -47,6 +47,9 @@ public class Main {
         user.viewDeviceState("gate locker");
         user.unlockDevice("gate locker");
         user.viewDeviceState("gate locker");
+        user.unlockDevice(gateLocker);
+        user.viewDeviceState(gateLocker);
+
         //user.unlockDevice("air conditioner");
         //user.lockGroup("test");
     }

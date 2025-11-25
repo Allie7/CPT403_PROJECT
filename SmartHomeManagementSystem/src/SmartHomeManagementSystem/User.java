@@ -124,6 +124,35 @@ public class User {
         hub.controlDevice(device_name,"on");
     }
 
+    /** direct control over devices (not through smartHub)
+     *
+     * @param device
+     */
+    public void turnOnDevice(SmartDevice device){
+        device.turnOn();
+    }
+
+    public void turnOffDevice(SmartDevice device){
+        device.turnOff();
+    }
+
+    public void lockDevice(SmartDevice device){
+        if (device instanceof SmartLock) {
+            ((SmartLock) device).lock();
+        } else {
+            throw new IllegalArgumentException(device.getName() + " is not a SmartLock");
+        }
+    }
+
+
+    public void unlockDevice(SmartDevice device){
+        if (device instanceof SmartLock) {
+            ((SmartLock) device).unlock();
+        } else {
+            throw new IllegalArgumentException(device.getName() +  " is not a SmartLock");
+        }
+    }
+
 
 
     public void turnOffGroup(String group_name){
@@ -172,6 +201,18 @@ public class User {
      */
     public void viewDeviceState(String device_name){
         hub.viewDeviceState(device_name);
+    }
+
+    /**
+     * directly view the device that is not in the hub
+     * @param currentDevice
+     */
+    public void viewDeviceState(SmartDevice currentDevice){
+        hub.viewDeviceState(currentDevice.getName());
+    }
+
+    public void viewDeviceState(DeviceGroup group){
+        hub.viewDeviceState(group.getName());
     }
 
 }
