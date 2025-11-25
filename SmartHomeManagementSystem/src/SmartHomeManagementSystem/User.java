@@ -8,6 +8,8 @@ import java.util.Map;
  * 用户类
  * 代表智能家居系统的用户，提供与SmartHomeHub交互的接口
  *
+ * @author Smart Home Management System Team
+ * @version 1.0
  */
 public class User {
     private String username;
@@ -69,7 +71,25 @@ public class User {
         hub.viewDeviceState(device_name);
     }
 
-    // ==================== 设备控制方法 ====================
+    /**
+     * 直接查看设备状态（设备不在Hub中也可查看）
+     *
+     * @param currentDevice 设备对象
+     */
+    public void viewDeviceState(SmartDevice currentDevice) {
+        hub.viewSingleDevice(currentDevice);
+    }
+
+    /**
+     * 查看设备组状态
+     *
+     * @param group 设备组对象
+     */
+    public void viewDeviceState(DeviceGroup group) {
+        hub.viewDeviceState(group.getName());
+    }
+
+    // ==================== 设备控制方法（通过Hub） ====================
 
     /**
      * 控制设备状态
@@ -101,10 +121,10 @@ public class User {
         hub.controlDevice(name, num);
     }
 
-    // ==================== 设备快捷控制方法 ====================
+    // ==================== 设备快捷控制方法（通过Hub） ====================
 
     /**
-     * 打开设备
+     * 打开设备（通过设备名称）
      *
      * @param device_name 设备名称
      */
@@ -113,7 +133,7 @@ public class User {
     }
 
     /**
-     * 关闭设备
+     * 关闭设备（通过设备名称）
      *
      * @param device_name 设备名称
      */
@@ -122,7 +142,7 @@ public class User {
     }
 
     /**
-     * 锁定设备
+     * 锁定设备（通过设备名称）
      *
      * @param device_name 设备名称
      */
@@ -131,12 +151,60 @@ public class User {
     }
 
     /**
-     * 解锁设备
+     * 解锁设备（通过设备名称）
      *
      * @param device_name 设备名称
      */
     public void unlockDevice(String device_name) {
         hub.controlDevice(device_name, "unlocked");
+    }
+
+    // ==================== 直接设备控制方法（不通过Hub） ====================
+
+    /**
+     * 直接打开设备（不通过Hub）
+     *
+     * @param device 设备对象
+     */
+    public void turnOnDevice(SmartDevice device) {
+        device.turnOn();
+    }
+
+    /**
+     * 直接关闭设备（不通过Hub）
+     *
+     * @param device 设备对象
+     */
+    public void turnOffDevice(SmartDevice device) {
+        device.turnOff();
+    }
+
+    /**
+     * 直接锁定设备（不通过Hub）
+     *
+     * @param device 设备对象
+     * @throws IllegalArgumentException 如果设备不是SmartLock
+     */
+    public void lockDevice(SmartDevice device) {
+        if (device instanceof SmartLock) {
+            ((SmartLock) device).lock();
+        } else {
+            throw new IllegalArgumentException(device.getName() + " is not a SmartLock");
+        }
+    }
+
+    /**
+     * 直接解锁设备（不通过Hub）
+     *
+     * @param device 设备对象
+     * @throws IllegalArgumentException 如果设备不是SmartLock
+     */
+    public void unlockDevice(SmartDevice device) {
+        if (device instanceof SmartLock) {
+            ((SmartLock) device).unlock();
+        } else {
+            throw new IllegalArgumentException(device.getName() + " is not a SmartLock");
+        }
     }
 
     // ==================== 设备管理方法 ====================
@@ -306,8 +374,7 @@ public class User {
     }
 
     /**
-     * 修改场景
-     * （预留方法，待实现）
+     * 修改场景（预留方法，待实现）
      *
      * @param name 场景名称
      * @param device_states 设备名称到目标状态的映射

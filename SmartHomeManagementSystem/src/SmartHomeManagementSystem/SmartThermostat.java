@@ -83,7 +83,7 @@ public class SmartThermostat extends SmartDevice {
      * @return 当前目标温度（摄氏度）
      */
     public double getTemperature() {
-        return temperature;
+        return this.temperature;
     }
 
     /**

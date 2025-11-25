@@ -41,7 +41,7 @@ public abstract class SmartDevice {
      * @return 设备名称
      */
     public String getName() {
-        return name;
+        return this.name;
     }
 
     /**
@@ -50,7 +50,7 @@ public abstract class SmartDevice {
      * @return 设备类型
      */
     public String getType() {
-        return type;
+        return this.type;
     }
 
     /**
@@ -59,7 +59,7 @@ public abstract class SmartDevice {
      * @return 设备状态
      */
     public String getState() {
-        return state;
+        return this.state;
     }
 
     /**
