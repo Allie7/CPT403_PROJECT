@@ -25,7 +25,9 @@ public class SmartThermostat extends SmartDevice {
 
     // 特定于恒温器的方法
     public void setTemperature(double temperature) {
+
         this.temperature = temperature;
+
     }
     // 特定于恒温器的方法
     public double getTemperature() {

@@ -30,6 +30,8 @@ public class SmartLight extends SmartDevice {
     public void setBrightness(int brightness) {
         if (brightness >= 0 && brightness <= 100) {
             this.brightness = brightness;
+        } else {
+            throw new IllegalArgumentException("Invalid brightness");
         }
     }
 
