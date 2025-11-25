@@ -4,139 +4,188 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 用户类
+ * 代表智能家居系统的用户，提供与SmartHomeHub交互的接口
+ *
+ * @author Smart Home Management System Team
+ * @version 1.0
+ */
 public class User {
-    public String username;
-    public SmartHomeHub hub;
+    private String username;
+    private SmartHomeHub hub;
 
-
+    /**
+     * 构造方法（带参数）
+     *
+     * @param username 用户名
+     * @param hub 智能家居中枢
+     */
     public User(String username, SmartHomeHub hub) {
+        if (username == null || username.trim().isEmpty()) {
+            throw new IllegalArgumentException("Username cannot be null or empty");
+        }
         this.username = username;
-        this.hub = hub;
+        this.hub = hub != null ? hub : new SmartHomeHub();
     }
 
+    /**
+     * 构造方法（仅用户名）
+     *
+     * @param username 用户名
+     */
     public User(String username) {
-        this.username = username;
-        this.hub = new SmartHomeHub();
+        this(username, new SmartHomeHub());
     }
 
+    /**
+     * 默认构造方法
+     */
     public User() {
-        this.username = null;
+        this.username = "DefaultUser";
         this.hub = new SmartHomeHub();
     }
 
-    public void viewAllDevices()
-    {
+    // ==================== 查看方法 ====================
+
+    /**
+     * 查看所有设备
+     */
+    public void viewAllDevices() {
         hub.viewAllDevices();
     }
 
-    public void viewAllGroups()
-    {
+    /**
+     * 查看所有设备组
+     */
+    public void viewAllGroups() {
         hub.viewAllGroups();
     }
 
-    public void controlDevices(String name,String state)
-    {
+    /**
+     * 查看指定设备或设备组的状态
+     *
+     * @param device_name 设备名称、设备组名称或"ALL"
+     */
+    public void viewDeviceState(String device_name) {
+        hub.viewDeviceState(device_name);
+    }
+
+    /**
+     * 直接查看设备状态（设备不在Hub中也可查看）
+     *
+     * @param currentDevice 设备对象
+     */
+    public void viewDeviceState(SmartDevice currentDevice) {
+        hub.viewSingleDevice(currentDevice);
+    }
+
+    /**
+     * 查看设备组状态
+     *
+     * @param group 设备组对象
+     */
+    public void viewDeviceState(DeviceGroup group) {
+        hub.viewDeviceState(group.getName());
+    }
+
+    // ==================== 设备控制方法（通过Hub） ====================
+
+    /**
+     * 控制设备状态
+     *
+     * @param name 设备名称
+     * @param state 目标状态
+     */
+    public void controlDevices(String name, String state) {
         hub.controlDevice(name, state);
     }
 
     /**
-     * Allow  light objects to be passed directly a interger value (percentage)
-     * @param name
-     * @param num
+     * 控制灯光设备亮度
+     *
+     * @param name 设备名称
+     * @param num 亮度值（0-100）
      */
-    public void controlDevices(String name,int num)
-    {
-        hub.controlDevice(name, num);
-    }
-    public void controlDevices(String name,double num)
-    {
+    public void controlDevices(String name, int num) {
         hub.controlDevice(name, num);
     }
 
     /**
-    add & create group
-     **/
-    public void createGroup(String name, List<SmartDevice> devices)
-    {
-        String checkType = devices.get(0).getType();
-        for(SmartDevice device : devices){
-            if (!device.getType().equals(checkType)){
-                throw new IllegalArgumentException("The device type does not match");
-            }
-        }
-        DeviceGroup newGroups = new DeviceGroup(name,devices);
-        hub.addGroup(newGroups);
-    }
-
-    //add devices trhough name
-    public void addDeviceToHub(String device_name){
-        hub.addDevice(device_name);
-    }
-    //add
-    public void addDeviceToHub(SmartDevice device){
-        hub.addDevice(device);
-    }
-
-    public void addGroupToHub(String device_name){
-        hub.addDevice(device_name);
-    }
-    //delete devices to hub
-    public void removeDeviceFromHub(String device_name){
-        hub.removeDevice(device_name);
-    }
-
-
-    public void removeGroupFromHub(String group_name){
-        hub.removeGroup(group_name);
-    }
-    public void removeGroupFromHub(DeviceGroup group){
-        hub.removeGroup(group);
-    }
-
-    // pass the desired state using device_states map
-    public Scene createScene(String name, Map<String, String> device_states)
-    {
-        Scene newScene = new Scene(name,device_states);
-        hub.addScene(newScene);
-        return newScene;
-    }
-
-    // not listed in the uml but I think we should be able to modify the scenes
-    public void modifyScene(String name, Map<String,String> device_states)
-    {
-
-    }
-
-    public void runScene(String name)
-    {
-        hub.executeScene(name);
-    }
-
-    /** TURN ON device shortcut. if the device is a locker, "turn on" is set to lock, "turn off" set to unlock
-     * @param group_name
+     * 控制温控器设备温度
      *
+     * @param name 设备名称
+     * @param num 温度值
      */
-    public void turnOnGroup(String group_name){
-        hub.manageGroup(group_name,"on");
+    public void controlDevices(String name, double num) {
+        hub.controlDevice(name, num);
     }
 
-    public void turnOnDevice(String device_name){
-        hub.controlDevice(device_name,"on");
-    }
+    // ==================== 设备快捷控制方法（通过Hub） ====================
 
-    /** direct control over devices (not through smartHub)
+    /**
+     * 打开设备（通过设备名称）
      *
-     * @param device
+     * @param device_name 设备名称
      */
-    public void turnOnDevice(SmartDevice device){
+    public void turnOnDevice(String device_name) {
+        hub.controlDevice(device_name, "on");
+    }
+
+    /**
+     * 关闭设备（通过设备名称）
+     *
+     * @param device_name 设备名称
+     */
+    public void turnOffDevice(String device_name) {
+        hub.controlDevice(device_name, "off");
+    }
+
+    /**
+     * 锁定设备（通过设备名称）
+     *
+     * @param device_name 设备名称
+     */
+    public void lockDevice(String device_name) {
+        hub.controlDevice(device_name, "locked");
+    }
+
+    /**
+     * 解锁设备（通过设备名称）
+     *
+     * @param device_name 设备名称
+     */
+    public void unlockDevice(String device_name) {
+        hub.controlDevice(device_name, "unlocked");
+    }
+
+    // ==================== 直接设备控制方法（不通过Hub） ====================
+
+    /**
+     * 直接打开设备（不通过Hub）
+     *
+     * @param device 设备对象
+     */
+    public void turnOnDevice(SmartDevice device) {
         device.turnOn();
     }
 
-    public void turnOffDevice(SmartDevice device){
+    /**
+     * 直接关闭设备（不通过Hub）
+     *
+     * @param device 设备对象
+     */
+    public void turnOffDevice(SmartDevice device) {
         device.turnOff();
     }
 
-    public void lockDevice(SmartDevice device){
+    /**
+     * 直接锁定设备（不通过Hub）
+     *
+     * @param device 设备对象
+     * @throws IllegalArgumentException 如果设备不是SmartLock
+     */
+    public void lockDevice(SmartDevice device) {
         if (device instanceof SmartLock) {
             ((SmartLock) device).lock();
         } else {
@@ -144,75 +193,202 @@ public class User {
         }
     }
 
-
-    public void unlockDevice(SmartDevice device){
+    /**
+     * 直接解锁设备（不通过Hub）
+     *
+     * @param device 设备对象
+     * @throws IllegalArgumentException 如果设备不是SmartLock
+     */
+    public void unlockDevice(SmartDevice device) {
         if (device instanceof SmartLock) {
             ((SmartLock) device).unlock();
         } else {
-            throw new IllegalArgumentException(device.getName() +  " is not a SmartLock");
+            throw new IllegalArgumentException(device.getName() + " is not a SmartLock");
         }
     }
 
+    // ==================== 设备管理方法 ====================
 
-
-    public void turnOffGroup(String group_name){
-        hub.manageGroup(group_name,"off");
-    }
-
-    public void turnOffDevice(String device_name){
-        hub.controlDevice(device_name,"off");
-    }
-
-    public void lockDevice(String device_name){
-        hub.controlDevice(device_name,"locked");
-    }
-
-    public void unlockDevice(String device_name){
-        hub.controlDevice(device_name,"unlocked");
-    }
-
-    public void lockGroup(String group_name){
-        hub.manageGroup(group_name,"locked");
-    }
-
-    public void unlockGroup(String group_name){
-        hub.manageGroup(group_name,"UNLOCKED");
-    }
-
-
-    public void manageGroup(String name,String state)
-    {
-        hub.manageGroup(name,state);
-    }
-
-    public void manageGroup(String name,int brightness)
-    {
-        hub.manageGroup(name,brightness);
-    }
-
-    public void manageGroup(String name,double temperature)
-    {
-        hub.manageGroup(name,temperature);
-    }
-
-
-    /** specified device name, group name or "ALL"
+    /**
+     * 通过名称添加设备到中枢
      *
+     * @param device_name 设备名称
      */
-    public void viewDeviceState(String device_name){
-        hub.viewDeviceState(device_name);
+    public void addDeviceToHub(String device_name) {
+        hub.addDevice(device_name);
     }
 
     /**
-     * directly view the device that is not in the hub
-     * @param currentDevice
+     * 添加设备到中枢
+     *
+     * @param device 设备对象
      */
-    public void viewDeviceState(SmartDevice currentDevice){
-        hub.viewDeviceState(currentDevice.getName());
+    public void addDeviceToHub(SmartDevice device) {
+        hub.addDevice(device);
     }
 
-    public void viewDeviceState(DeviceGroup group){
-        hub.viewDeviceState(group.getName());
+    /**
+     * 从中枢移除设备
+     *
+     * @param device_name 设备名称
+     */
+    public void removeDeviceFromHub(String device_name) {
+        hub.removeDevice(device_name);
     }
 
+    // ==================== 设备组管理方法 ====================
+
+    /**
+     * 创建设备组
+     * 所有设备必须是同一类型
+     *
+     * @param name 设备组名称
+     * @param devices 设备列表
+     * @throws IllegalArgumentException 如果设备类型不匹配
+     */
+    public void createGroup(String name, List<SmartDevice> devices) {
+        if (devices == null || devices.isEmpty()) {
+            throw new IllegalArgumentException("Device list cannot be null or empty");
+        }
+
+        String checkType = devices.get(0).getType();
+        for (SmartDevice device : devices) {
+            if (!device.getType().equals(checkType)) {
+                throw new IllegalArgumentException("All devices in a group must have the same type");
+            }
+        }
+        DeviceGroup newGroup = new DeviceGroup(name, devices);
+        hub.addGroup(newGroup);
+    }
+
+    /**
+     * 通过名称添加设备组到中枢
+     *
+     * @param device_name 设备组名称
+     */
+    public void addGroupToHub(String device_name) {
+        hub.addDevice(device_name);
+    }
+
+    /**
+     * 从中枢移除设备组
+     *
+     * @param group_name 设备组名称
+     */
+    public void removeGroupFromHub(String group_name) {
+        hub.removeGroup(group_name);
+    }
+
+    /**
+     * 从中枢移除设备组
+     *
+     * @param group 设备组对象
+     */
+    public void removeGroupFromHub(DeviceGroup group) {
+        hub.removeGroup(group);
+    }
+
+    // ==================== 设备组控制方法 ====================
+
+    /**
+     * 管理设备组状态
+     *
+     * @param name 设备组名称
+     * @param state 目标状态
+     */
+    public void manageGroup(String name, String state) {
+        hub.manageGroup(name, state);
+    }
+
+    /**
+     * 设置灯光设备组亮度
+     *
+     * @param name 设备组名称
+     * @param brightness 亮度值（0-100）
+     */
+    public void manageGroup(String name, int brightness) {
+        hub.manageGroup(name, brightness);
+    }
+
+    /**
+     * 设置温控器设备组温度
+     *
+     * @param name 设备组名称
+     * @param temperature 温度值
+     */
+    public void manageGroup(String name, double temperature) {
+        hub.manageGroup(name, temperature);
+    }
+
+    // ==================== 设备组快捷控制方法 ====================
+
+    /**
+     * 打开设备组
+     *
+     * @param group_name 设备组名称
+     */
+    public void turnOnGroup(String group_name) {
+        hub.manageGroup(group_name, "on");
+    }
+
+    /**
+     * 关闭设备组
+     *
+     * @param group_name 设备组名称
+     */
+    public void turnOffGroup(String group_name) {
+        hub.manageGroup(group_name, "off");
+    }
+
+    /**
+     * 锁定设备组
+     *
+     * @param group_name 设备组名称
+     */
+    public void lockGroup(String group_name) {
+        hub.manageGroup(group_name, "locked");
+    }
+
+    /**
+     * 解锁设备组
+     *
+     * @param group_name 设备组名称
+     */
+    public void unlockGroup(String group_name) {
+        hub.manageGroup(group_name, "unlocked");
+    }
+
+    // ==================== 场景管理方法 ====================
+
+    /**
+     * 创建场景
+     *
+     * @param name 场景名称
+     * @param device_states 设备名称到目标状态的映射
+     * @return 创建的场景对象
+     */
+    public Scene createScene(String name, Map<String, String> device_states) {
+        Scene newScene = new Scene(name, device_states);
+        hub.addScene(newScene);
+        return newScene;
+    }
+
+    /**
+     * 修改场景（预留方法，待实现）
+     *
+     * @param name 场景名称
+     * @param device_states 设备名称到目标状态的映射
+     */
+    public void modifyScene(String name, Map<String, String> device_states) {
+        // 待实现：可以通过getSceneByName获取场景，然后修改其动作
+    }
+
+    /**
+     * 执行场景
+     *
+     * @param name 场景名称
+     */
+    public void runScene(String name) {
+        hub.executeScene(name);
+    }
 }
