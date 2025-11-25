@@ -58,12 +58,12 @@ public class SmartLock extends SmartDevice {
     public void setState(String state) {
         state = state.toLowerCase();
         if (state.equals("on")){
-            state = "unlocked";
+            this.state = "unlocked";
         }
         else if (state.equals("off")){
-            state = "locked";
+            this.state = "locked";
         }else if (legalStates.contains(state)){
-            state = "locked";
+            this.state = "locked";
         }
     }
 

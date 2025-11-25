@@ -22,15 +22,15 @@ public abstract class SmartDevice {
 
     // Getter 方法
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public String getType() {
-        return type;
+        return this.type;
     }
 
     public String getState() {
-        return state;
+        return this.state;
     }
 
     // Setter 方法
@@ -47,18 +47,6 @@ public abstract class SmartDevice {
 
     public abstract void turnOff();
 
-    // 辅助方法
-    public boolean isOn() {
-        return "on".equalsIgnoreCase(state);
-    }
-
-    public void toggle() {
-        if (isOn()) {
-            turnOff();
-        } else {
-            turnOn();
-        }
-    }
 
 
 

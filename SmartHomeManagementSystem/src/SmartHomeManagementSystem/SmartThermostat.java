@@ -31,7 +31,7 @@ public class SmartThermostat extends SmartDevice {
     }
     // 特定于恒温器的方法
     public double getTemperature() {
-        return temperature;
+        return this.temperature;
     }
 
     @Override
