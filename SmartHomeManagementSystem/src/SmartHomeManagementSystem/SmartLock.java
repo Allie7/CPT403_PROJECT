@@ -38,15 +38,15 @@ public class SmartLock extends SmartDevice {
 
     @Override
     public void turnOn() {
-        unlock();
-        isLocked = false;
+        lock();
+        isLocked = true;
     }
 
 
     @Override
     public void turnOff() {
-        lock();
-        isLocked = true;
+        unlock();
+        isLocked = false;
     }
 
 
@@ -54,6 +54,14 @@ public class SmartLock extends SmartDevice {
         return state.equals("locked");
     }
 
+    public void setState(String state) {
+        if (state.equals("on")){
+            this.state = "unlocked";
+        }
+        else if (state.equals("off")){
+            this.state = "locked";
+        }
+    }
 
 
 }

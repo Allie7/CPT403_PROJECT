@@ -113,8 +113,8 @@ public class User {
     }
 
     /** TURN ON device shortcut
-     * @param name
-     * @param state
+     * @param group_name
+     *
      */
     public void turnOnGroup(String group_name){
         hub.manageGroup(group_name,"on");
@@ -123,6 +123,7 @@ public class User {
     public void turnOnDevice(String device_name){
         hub.controlDevice(device_name,"on");
     }
+
 
 
     public void turnOffGroup(String group_name){
@@ -134,15 +135,15 @@ public class User {
     }
 
     public void lockDevice(String device_name){
-        hub.controlDevice(device_name,"LOCKED");
+        hub.controlDevice(device_name,"locked");
     }
 
     public void unlockDevice(String device_name){
-        hub.controlDevice(device_name,"UNLOCKED");
+        hub.controlDevice(device_name,"unlocked");
     }
 
     public void lockGroup(String group_name){
-        hub.manageGroup(group_name,"LOCKED");
+        hub.manageGroup(group_name,"locked");
     }
 
     public void unlockGroup(String group_name){
