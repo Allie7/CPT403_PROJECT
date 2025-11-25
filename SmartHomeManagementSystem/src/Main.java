@@ -44,5 +44,7 @@ public class Main {
         user.manageGroup("test", 12.0);
         user.viewDeviceState("test");
         user.viewDeviceState("air conditioner");
+        user.viewDeviceState("gate locker");
+        user.lockDevice("gate locker");
     }
 }

@@ -112,7 +112,7 @@ public class User {
         hub.executeScene(name);
     }
 
-    /** TURN ON device shortcut
+    /** TURN ON device shortcut. if the device is a locker, "turn on" is set to lock, "turn off" set to unlock
      * @param group_name
      *
      */

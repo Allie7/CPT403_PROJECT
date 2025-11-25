@@ -201,7 +201,7 @@ public class SmartHomeHub {
     public void manageGroup(String name, Double temperature) {
         DeviceGroup currentGroup = getGroupByName(name);
         if (currentGroup != null && currentGroup.getType() == "Thermostat") {
-            currentGroup.applyToAll("ON");
+            currentGroup.applyToAll("on");
             currentGroup.applyToAll(temperature);
         } else  {
             throw new IllegalArgumentException("group "+name+" not found");
@@ -211,7 +211,7 @@ public class SmartHomeHub {
     public void manageGroup(String name, int brightness) {
         DeviceGroup currentGroup = getGroupByName(name);
         if (currentGroup != null && currentGroup.getType() == "Light") {
-            currentGroup.applyToAll("ON");
+            currentGroup.applyToAll("on");
             currentGroup.applyToAll(brightness);
         } else   {
             throw new IllegalArgumentException("group "+name+" not found");

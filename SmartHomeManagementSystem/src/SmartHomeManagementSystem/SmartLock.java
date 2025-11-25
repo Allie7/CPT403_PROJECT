@@ -8,8 +8,10 @@ import java.util.List;
  * 继承自抽象类SmartDevice，提供门锁特定的功能
  */
 public class SmartLock extends SmartDevice {
-    private boolean isLocked;
-    private static ArrayList<String> legal_states = new ArrayList<>(List.of("lock","unlock"));
+
+    private boolean isLocked; // kind of redundant, may be we should delete it
+    private static ArrayList<String> legalStates = new ArrayList<>(List.of("lock","unlock"));
+
     /**
      *
      */
@@ -40,14 +42,12 @@ public class SmartLock extends SmartDevice {
     @Override
     public void turnOn() {
         lock();
-        isLocked = true;
     }
 
 
     @Override
     public void turnOff() {
         unlock();
-        isLocked = false;
     }
 
 
@@ -56,11 +56,14 @@ public class SmartLock extends SmartDevice {
     }
 
     public void setState(String state) {
+        state = state.toLowerCase();
         if (state.equals("on")){
-            this.state = "unlocked";
+            state = "unlocked";
         }
         else if (state.equals("off")){
-            this.state = "locked";
+            state = "locked";
+        }else if (legalStates.contains(state)){
+            state = "locked";
         }
     }
 

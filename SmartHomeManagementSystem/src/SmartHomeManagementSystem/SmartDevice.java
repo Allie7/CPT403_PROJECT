@@ -11,7 +11,7 @@ public abstract class SmartDevice {
     protected String name;
     protected String type;
     protected String state;
-    public static String[] legalStates = {"on","off"};
+    private static ArrayList<String> legalStates = new ArrayList<>(List.of("on","off"));
 
     // 构造方法
     public SmartDevice(String name, String type) {
@@ -35,11 +35,16 @@ public abstract class SmartDevice {
 
     // Setter 方法
     public void setState(String state) {
-        this.state = state;
+        state = state.toLowerCase();
+        if (legalStates.contains(state)) {
+            this.state = state;
+        } else
+            throw new IllegalArgumentException("Illegal state :" + state);
     }
 
     // kind of redundant
     public abstract void turnOn();
+
     public abstract void turnOff();
 
     // 辅助方法
