@@ -8,8 +8,6 @@ import java.util.Map;
  * 用户类
  * 代表智能家居系统的用户，提供与SmartHomeHub交互的接口
  *
- * @author Smart Home Management System Team
- * @version 1.0
  */
 public class User {
     private String username;
@@ -368,20 +366,71 @@ public class User {
      * @return 创建的场景对象
      */
     public Scene createScene(String name, Map<String, String> device_states) {
+        // 直接创建场景（Scene 现在只是配置文件）
         Scene newScene = new Scene(name, device_states);
+
+        // 添加到 Hub
         hub.addScene(newScene);
+
         return newScene;
     }
 
     /**
-     * 修改场景（预留方法，待实现）
+     * 修改场景
+     * 更新场景中的设备状态配置
      *
      * @param name 场景名称
      * @param device_states 设备名称到目标状态的映射
      */
     public void modifyScene(String name, Map<String, String> device_states) {
-        // 待实现：可以通过getSceneByName获取场景，然后修改其动作
+        Scene scene = hub.getSceneByName(name);
+        if (scene != null) {
+            // 清空原有配置
+            scene.clearDeviceStates();
+
+            // 添加新配置
+            if (device_states != null) {
+                for (Map.Entry<String, String> entry : device_states.entrySet()) {
+                    scene.addDeviceState(entry.getKey(), entry.getValue());
+                }
+            }
+        } else {
+            throw new IllegalArgumentException("Scene not found: " + name);
+        }
     }
+
+    /**
+     * 向现有场景添加设备状态
+     *
+     * @param sceneName 场景名称
+     * @param deviceName 设备名称
+     * @param targetState 目标状态
+     */
+    public void addDeviceToScene(String sceneName, String deviceName, String targetState) {
+        Scene scene = hub.getSceneByName(sceneName);
+        if (scene != null) {
+            scene.addDeviceState(deviceName, targetState);
+        } else {
+            throw new IllegalArgumentException("Scene not found: " + sceneName);
+        }
+    }
+
+    /**
+     * 从场景中移除设备
+     *
+     * @param sceneName 场景名称
+     * @param deviceName 设备名称
+     */
+    public void removeDeviceFromScene(String sceneName, String deviceName) {
+        Scene scene = hub.getSceneByName(sceneName);
+        if (scene != null) {
+            scene.removeDeviceState(deviceName);
+        } else {
+            throw new IllegalArgumentException("Scene not found: " + sceneName);
+        }
+    }
+
+
 
     /**
      * 执行场景
