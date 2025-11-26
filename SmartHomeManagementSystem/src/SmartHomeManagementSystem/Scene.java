@@ -1,20 +1,21 @@
 package SmartHomeManagementSystem;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
  * 场景类
- * 用于定义和执行预设的设备状态组合
+ * 用于定义和存储预设的设备状态组合配置
  * 例如："电影之夜"场景可能包括调暗客厅灯光、锁定前门等操作
+ *
+ * 注意：Scene 只是一个配置类，实际的设备控制由 SmartHomeHub 执行
  *
  */
 public class Scene {
     // 私有属性
     private String name;
     private String description;
-    private List<SceneAction> actions;
+    private Map<String, String> deviceStates; // 设备名称 → 目标状态的映射
     protected String state; // 场景状态（如：active, inactive等）
 
     /**
@@ -31,49 +32,87 @@ public class Scene {
         this.name = name;
         this.description = "";
         this.state = "inactive"; // 默认场景状态为未激活
-        this.actions = new ArrayList<>();
 
-        // 根据device_states构建场景动作列表
-        // 注意：这里只创建了actions列表，实际的设备引用需要在执行时通过Hub获取
+        // 存储设备状态配置（深拷贝以保护数据）
         if (device_states != null) {
-            // 预留：可以在这里存储设备名称和状态的映射
-            // 实际执行时需要通过Hub查找设备
+            this.deviceStates = new HashMap<>(device_states);
+        } else {
+            this.deviceStates = new HashMap<>();
         }
     }
 
-    // ==================== 场景动作管理 ====================
+    // ==================== 设备状态配置管理 ====================
 
     /**
-     * 添加场景动作
+     * 添加或更新设备状态配置
      *
-     * @param action 要添加的场景动作
+     * @param deviceName 设备名称
+     * @param targetState 目标状态
      */
-    public void addAction(SceneAction action) {
-        if (action != null && !actions.contains(action)) {
-            actions.add(action);
+    public void addDeviceState(String deviceName, String targetState) {
+        if (deviceName == null || deviceName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Device name cannot be null or empty");
         }
+        if (targetState == null || targetState.trim().isEmpty()) {
+            throw new IllegalArgumentException("Target state cannot be null or empty");
+        }
+        deviceStates.put(deviceName, targetState);
     }
 
     /**
-     * 移除场景动作
+     * 移除设备状态配置
      *
-     * @param action 要移除的场景动作
+     * @param deviceName 设备名称
      */
-    public void removeAction(SceneAction action) {
-        if (action != null) {
-            actions.remove(action);
+    public void removeDeviceState(String deviceName) {
+        if (deviceName != null) {
+            deviceStates.remove(deviceName);
         }
     }
 
     /**
-     * 执行场景
-     * 按顺序执行场景中的所有动作
+     * 获取指定设备的目标状态
+     *
+     * @param deviceName 设备名称
+     * @return 目标状态，如果设备不在场景中返回null
      */
-    public void execute() {
-        this.state = "active"; // 标记场景为激活状态
-        for (SceneAction action : actions) {
-            action.execute();
-        }
+    public String getDeviceState(String deviceName) {
+        return deviceStates.get(deviceName);
+    }
+
+    /**
+     * 获取所有设备状态配置（返回副本以保护内部数据）
+     *
+     * @return 设备状态映射的副本
+     */
+    public Map<String, String> getDeviceStates() {
+        return new HashMap<>(deviceStates);
+    }
+
+    /**
+     * 检查场景中是否包含指定设备
+     *
+     * @param deviceName 设备名称
+     * @return 如果包含该设备返回true
+     */
+    public boolean containsDevice(String deviceName) {
+        return deviceStates.containsKey(deviceName);
+    }
+
+    /**
+     * 获取场景中的设备数量
+     *
+     * @return 设备数量
+     */
+    public int getDeviceCount() {
+        return deviceStates.size();
+    }
+
+    /**
+     * 清空场景中的所有设备配置
+     */
+    public void clearDeviceStates() {
+        deviceStates.clear();
     }
 
     // ==================== Getter和Setter方法 ====================
@@ -139,102 +178,23 @@ public class Scene {
     }
 
     /**
-     * 获取场景动作列表（返回副本以保护内部数据）
+     * 返回场景的字符串表示
      *
-     * @return 场景动作列表的副本
+     * @return 包含场景名称、状态和设备配置的格式化字符串
      */
-    public List<SceneAction> getActions() {
-        return new ArrayList<>(actions);
-    }
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Scene{name='").append(name).append("', state='").append(state).append("', devices=[");
 
-    // ==================== SceneAction内部类 ====================
-
-    /**
-     * 场景动作内部类
-     * 表示场景中对单个设备的操作
-     */
-    public class SceneAction {
-        // 私有属性
-        private SmartDevice device;
-        private String desiredState;
-
-        /**
-         * 构造方法
-         *
-         * @param device 要操作的设备
-         * @param desiredState 目标状态
-         */
-        public SceneAction(SmartDevice device, String desiredState) {
-            if (device == null) {
-                throw new IllegalArgumentException("Device cannot be null");
-            }
-            if (desiredState == null || desiredState.trim().isEmpty()) {
-                throw new IllegalArgumentException("Desired state cannot be null or empty");
-            }
-            this.device = device;
-            this.desiredState = desiredState;
+        int count = 0;
+        for (Map.Entry<String, String> entry : deviceStates.entrySet()) {
+            if (count > 0) sb.append(", ");
+            sb.append(entry.getKey()).append("->").append(entry.getValue());
+            count++;
         }
 
-        /**
-         * 获取设备
-         *
-         * @return 设备对象
-         */
-        public SmartDevice getDevice() {
-            return device;
-        }
-
-        /**
-         * 获取目标状态
-         *
-         * @return 目标状态
-         */
-        public String getDesiredState() {
-            return desiredState;
-        }
-
-        /**
-         * 设置设备
-         *
-         * @param device 设备对象
-         */
-        public void setDevice(SmartDevice device) {
-            if (device == null) {
-                throw new IllegalArgumentException("Device cannot be null");
-            }
-            this.device = device;
-        }
-
-        /**
-         * 设置目标状态
-         *
-         * @param desiredState 目标状态
-         */
-        public void setDesiredState(String desiredState) {
-            if (desiredState == null || desiredState.trim().isEmpty()) {
-                throw new IllegalArgumentException("Desired state cannot be null or empty");
-            }
-            this.desiredState = desiredState;
-        }
-
-        /**
-         * 执行场景动作
-         * 将设备设置为目标状态
-         */
-        public void execute() {
-            if (device != null && desiredState != null) {
-                device.setState(desiredState);
-            }
-        }
-
-        /**
-         * 返回场景动作的字符串表示
-         *
-         * @return 格式化的动作信息
-         */
-        @Override
-        public String toString() {
-            return "SceneAction{device=" + device + ", desiredState='" + desiredState + "'}";
-        }
+        sb.append("]}");
+        return sb.toString();
     }
 }
