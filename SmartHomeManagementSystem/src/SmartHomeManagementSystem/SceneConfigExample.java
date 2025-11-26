@@ -6,7 +6,10 @@ import java.util.Map;
 /**
  * 场景配置示例类
  * 提供预定义的常用场景配置
- *
+ * 创建多个设备
+ * 使用预定义配置创建场景
+ * 一键执行场景（同时控制多个设备）
+ * 展示场景的实际应用价值
  */
 public class SceneConfigExample {
 
