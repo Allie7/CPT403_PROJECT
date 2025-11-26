@@ -191,6 +191,7 @@ public class SmartHomeHub {
         return null;
     }
 
+
     /**
      * 执行指定名称的场景
      * 根据场景配置，查找设备并设置为目标状态
@@ -207,17 +208,40 @@ public class SmartHomeHub {
             Map<String, String> deviceStates = scene.getDeviceStates();
             for (Map.Entry<String, String> entry : deviceStates.entrySet()) {
                 String deviceName = entry.getKey();
-                String targetState = entry.getValue();
+                String targetValue = entry.getValue();
 
                 // 通过 Hub 查找设备
                 SmartDevice device = findDeviceByName(deviceName);
                 if (device != null) {
                     try {
-                        // 设置设备状态
-                        device.setState(targetState);
-                    } catch (IllegalArgumentException e) {
-                        // 如果状态不合法，记录错误但继续执行其他设备
-                        System.err.println("Failed to set " + deviceName + " to " + targetState + ": " + e.getMessage());
+                        // 根据设备类型和目标值类型，选择合适的方法
+                        if (device instanceof SmartLight) {
+                            // 灯光设备：尝试解析为亮度值
+                            if (isNumeric(targetValue)) {
+                                int brightness = Integer.parseInt(targetValue);
+                                ((SmartLight) device).turnOn();
+                                ((SmartLight) device).setBrightness(brightness);
+                            } else {
+                                // 如果不是数字，当作状态处理（on/off）
+                                device.setState(targetValue);
+                            }
+                        } else if (device instanceof SmartThermostat) {
+                            // 温控器设备：尝试解析为温度值
+                            if (isNumeric(targetValue)) {
+                                double temperature = Double.parseDouble(targetValue);
+                                ((SmartThermostat) device).turnOn();
+                                ((SmartThermostat) device).setTemperature(temperature);
+                            } else {
+                                // 如果不是数字，当作状态处理（on/off）
+                                device.setState(targetValue);
+                            }
+                        } else {
+                            // 其他设备（如门锁）：直接设置状态
+                            device.setState(targetValue);
+                        }
+                    } catch (RuntimeException e) {
+                        // 如果状态/数值不合法，记录错误但继续执行其他设备
+                        System.err.println("Failed to set " + deviceName + " to " + targetValue + ": " + e.getMessage());
                     }
                 } else {
                     // 设备不存在，记录警告
@@ -229,6 +253,24 @@ public class SmartHomeHub {
             // scene.setState("inactive");
         } else {
             throw new IllegalArgumentException("Scene not found: " + name);
+        }
+    }
+
+    /**
+     * 辅助方法：判断字符串是否为数字
+     *
+     * @param str 要判断的字符串
+     * @return 如果是数字返回true
+     */
+    private boolean isNumeric(String str) {
+        if (str == null || str.trim().isEmpty()) {
+            return false;
+        }
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 
