@@ -190,7 +190,7 @@ public class SmartHomeHub {
         }
         return null;
     }
-    
+
     /**
      * 执行指定名称的场景
      * 根据场景配置，查找设备并设置为目标状态
