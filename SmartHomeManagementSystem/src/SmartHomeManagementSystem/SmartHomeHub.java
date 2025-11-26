@@ -190,16 +190,45 @@ public class SmartHomeHub {
         }
         return null;
     }
-
+    
     /**
      * 执行指定名称的场景
+     * 根据场景配置，查找设备并设置为目标状态
      *
      * @param name 场景名称
      */
     public void executeScene(String name) {
         Scene scene = getSceneByName(name);
         if (scene != null) {
-            scene.execute();
+            // 标记场景为激活状态
+            scene.setState("active");
+
+            // 遍历场景中的所有设备配置
+            Map<String, String> deviceStates = scene.getDeviceStates();
+            for (Map.Entry<String, String> entry : deviceStates.entrySet()) {
+                String deviceName = entry.getKey();
+                String targetState = entry.getValue();
+
+                // 通过 Hub 查找设备
+                SmartDevice device = findDeviceByName(deviceName);
+                if (device != null) {
+                    try {
+                        // 设置设备状态
+                        device.setState(targetState);
+                    } catch (IllegalArgumentException e) {
+                        // 如果状态不合法，记录错误但继续执行其他设备
+                        System.err.println("Failed to set " + deviceName + " to " + targetState + ": " + e.getMessage());
+                    }
+                } else {
+                    // 设备不存在，记录警告
+                    System.err.println("Device not found in scene '" + name + "': " + deviceName);
+                }
+            }
+
+            // 执行完成后可以将状态改回 inactive（可选）
+            // scene.setState("inactive");
+        } else {
+            throw new IllegalArgumentException("Scene not found: " + name);
         }
     }
 
