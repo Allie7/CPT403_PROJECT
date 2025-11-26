@@ -291,7 +291,8 @@ public class User {
     /**
      * add a device to a group in hub through names
      *
-     * @param device_name the name of the group
+     * @param device_name the name of the device
+     * @param group the name of the group
      */
     public void addMemberToGroup(String device_name,String group_name) {
         hub.addDeviceToGroup(device_name, group_name);
@@ -322,7 +323,8 @@ public class User {
     /**
      * remove a device to a group in hub through names
      *
-     * @param device_name the name of the group
+     * @param device_name the name of the device
+     * @param group_name the name of the group
      */
     public void removeMemberFromGroup(String device_name,String group_name) {
         hub.removeDeviceFromGroup(device_name, group_name);
