@@ -15,6 +15,7 @@ public class Main {
         SmartDevice airConditioner2 = new SmartThermostat("air conditioner2");
 
         SmartDevice gateLocker = new SmartLock("gate locker");
+        SmartDevice gateLocker2 = new SmartLock("gate locker2");
         ArrayList<SmartDevice> devices = new ArrayList<>(List.of(upstairsLight, airConditioner, gateLocker));
         ArrayList<SmartDevice> devices2 = new ArrayList<>(List.of(airConditioner, airConditioner2));
         user.addDeviceToHub(upstairsLight);
@@ -49,8 +50,20 @@ public class Main {
         user.viewDeviceState("gate locker");
         user.unlockDevice(gateLocker);
         user.viewDeviceState(gateLocker);
-
-        //user.unlockDevice("air conditioner");
+        ArrayList<String> devicesNames = new ArrayList<>();
+        //devicesNames.add("upstairs light");
+        devicesNames.add("gate locker");
+        user.groupDevicesInHub("test2",devicesNames);
+        user.lockGroup("test2");
+        user.addMemberToGroup(gateLocker2,"test2");
+        user.viewDeviceState("test2");
+        user.removeGroupFromHub("test2");
+        user.groupDevicesInHub("test2",devicesNames);
+        user.createGroup("test3", devices2);
+        user.removeMemberFromGroup(gateLocker2,"test2");
+        user.addMemberToGroup(gateLocker2,"test2");
+        user.viewDeviceState("test2");
+        //user.unlockGroup("test2");
         //user.lockGroup("test");
     }
 }

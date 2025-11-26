@@ -4,23 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 设备组类
- * 用于管理同一类型的多个智能设备，支持批量操作
+ * Device Group class
+ * Used for managing multiple smart devices of the same type, supporting batch operations.
  *
  */
 public class DeviceGroup {
-    // 私有属性
+    // private fields
     private String name;
     private List<SmartDevice> devices;
     private String type;
 
+
     /**
-     * 构造方法
-     * 创建一个设备组，所有设备必须是同一类型
+     * Construct method
+     * create a device group in which all devices must match the same type
      *
-     * @param name 设备组名称
-     * @param devices 设备列表
-     * @throws IllegalArgumentException 如果设备列表为空或设备类型不一致
+     * @param name device group name
+     * @param devices list of devices
+     * @throws IllegalArgumentException if the group list is empty or device types does not match
      */
     public DeviceGroup(String name, List<SmartDevice> devices) {
         if (name == null || name.trim().isEmpty()) {
@@ -41,6 +42,8 @@ public class DeviceGroup {
         this.name = name;
         this.devices = new ArrayList<>(devices);
     }
+
+
 
     /**
      * 获取设备组名称
