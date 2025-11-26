@@ -22,7 +22,7 @@ public class Scene {
      * 构造方法
      * 通过设备状态映射创建场景
      *
-     * @param name 场景名称
+     * @param name scene name
      * @param device_states 设备名称到目标状态的映射
      */
     public Scene(String name, Map<String, String> device_states) {
@@ -120,7 +120,7 @@ public class Scene {
     /**
      * 获取场景名称
      *
-     * @return 场景名称
+     * @return scene name
      */
     public String getName() {
         return name;
@@ -129,7 +129,7 @@ public class Scene {
     /**
      * 设置场景名称
      *
-     * @param name 场景名称
+     * @param name scene name
      */
     public void setName(String name) {
         if (name == null || name.trim().isEmpty()) {
