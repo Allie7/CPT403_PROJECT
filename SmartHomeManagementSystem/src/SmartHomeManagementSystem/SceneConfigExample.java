@@ -110,20 +110,20 @@ public class SceneConfigExample {
         User user = new User("Alice");
 
         // ==================== Step 1: Create a device and add it to the Hub  ====================
-        System.out.println("=== 创建设备 ===");
+        System.out.println("=== Created scene objects ===");
 
         // Create Lighting Equipment
-        SmartLight livingRoomLight = new SmartLight("客厅灯");
-        SmartLight bedroomLight = new SmartLight("卧室灯");
-        SmartLight kitchenLight = new SmartLight("厨房灯");
-        SmartLight entranceLight = new SmartLight("玄关灯");
+        SmartLight livingRoomLight = new SmartLight("Living Room Light");
+        SmartLight bedroomLight = new SmartLight("Bedroom light");
+        SmartLight kitchenLight = new SmartLight("Kitchen light");
+        SmartLight entranceLight = new SmartLight("Entranceway Light");
 
         //  Create Door Lock Device
-        SmartLock frontDoorLock = new SmartLock("前门锁");
-        SmartLock backDoorLock = new SmartLock("后门锁");
+        SmartLock frontDoorLock = new SmartLock("Front door lock");
+        SmartLock backDoorLock = new SmartLock("Back door lock");
 
         // Create a thermostat device
-        SmartThermostat thermostat = new SmartThermostat("温控器");
+        SmartThermostat thermostat = new SmartThermostat("Thermostat");
 
         // Add device to Hub
         user.addDeviceToHub(livingRoomLight);
