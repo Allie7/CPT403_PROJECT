@@ -1,8 +1,10 @@
 package SmartHomeManagementSystem;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 /**
  * 智能家居中枢类
@@ -105,6 +107,20 @@ public class SmartHomeHub {
         }
         return null;
     }
+    /**
+     * find group through name
+     *
+     * @param name group name
+     * @return the group it finds, if not exists then return null
+     */
+    public DeviceGroup findGroupByName(String name) {
+        for (DeviceGroup group : groups) {
+            if (group.getName().equals(name)) {
+                return group;
+            }
+        }
+        return null;
+    }
 
     // ==================== 设备组管理方法 ====================
 
@@ -124,6 +140,125 @@ public class SmartHomeHub {
             groups.add(group);
         }
     }
+
+
+    /**
+     * Group devices that already exists and add the group to the group list
+     *
+     * @param name name of the group
+     * @param device_names  name of the devices
+     * @throws IllegalArgumentException when group name exists and device names list are empty or when the device name
+     * listed is not in the hub
+     **/
+    protected void groupDevices(String name, ArrayList<String> device_names) {
+        if (findGroupByName(name)  != null) {
+            throw new IllegalArgumentException("Group name exists");
+        }
+        ArrayList<SmartDevice> devices_group = new ArrayList<SmartDevice>();
+        if (device_names == null ) {
+            throw new IllegalArgumentException("Device list cannot be null or empty");
+        }
+        for (String device_name : device_names) {
+            SmartDevice device = findDeviceByName(device_name);
+            if (device != null) {
+                devices.add(device);
+                devices_group.add(device);
+            }else  {
+                throw new IllegalArgumentException("Device name " + device_name + " not found");
+            }
+
+        }
+        DeviceGroup group = new DeviceGroup(name, devices_group);
+        groups.add(group);
+    }
+
+    public void addDeviceToGroup(String device_name, String group_name) {
+        DeviceGroup group = findGroupByName(group_name);
+        SmartDevice device = findDeviceByName(device_name);
+        if (device != null && group != null) {
+            group.addDevice(device);
+        }
+        else  {
+            throw new IllegalArgumentException("names not found");
+        }
+    }
+
+    public void addDeviceToGroup(SmartDevice device, String group_name) {
+        DeviceGroup group = findGroupByName(group_name);
+        if (group == null) {
+            throw new IllegalArgumentException("group not found");
+        }else if (device != null && devices.contains(device)) {
+            group.addDevice(device);
+        }
+        else if (device != null) {
+            devices.add(device);
+            group.addDevice(device);
+        }
+    }
+
+    public void addDeviceToGroup(SmartDevice device, DeviceGroup group) {
+        if (devices.contains(device) && groups.contains(group)) {
+            group.addDevice(device);
+        }else  {
+            throw new IllegalArgumentException("device or group not added");
+        }
+    }
+
+    public void addDeviceToGroup(String device_name, DeviceGroup group) {
+        SmartDevice device = findDeviceByName(device_name);
+        if (device != null) {
+            throw new IllegalArgumentException("device not added");
+        }
+        if (devices.contains(device) && groups.contains(group)) {
+            group.addDevice(device);
+        }else  {
+            throw new IllegalArgumentException("group not added");
+        }
+    }
+
+
+    public void removeDeviceFromGroup(String device_name, String group_name) {
+        DeviceGroup group = findGroupByName(group_name);
+        SmartDevice device = findDeviceByName(device_name);
+        if (device != null && group != null) {
+            group.removeDevice(device);
+        }
+        else  {
+            throw new IllegalArgumentException("names not found");
+        }
+    }
+
+    public void removeDeviceFromGroup(SmartDevice device, String group_name) {
+        DeviceGroup group = findGroupByName(group_name);
+        if (group != null) {
+            group.removeDevice(device);
+        } else if (group == null)  {
+            throw new IllegalArgumentException("group not found");
+        } else {
+            throw new IllegalArgumentException("device not legal");
+        }
+    }
+    public void removeDeviceFromGroup(String device_name, DeviceGroup group) {
+        if (!groups.contains(group) | group == null) {
+            throw new IllegalArgumentException("group not added");
+        }
+        SmartDevice device = findDeviceByName(device_name);
+        if (device == null) {
+            throw new IllegalArgumentException("device not found");
+        } else {
+            group.removeDevice(device);
+        }
+    }
+
+    public void removeDeviceFromGroup(SmartDevice device, DeviceGroup group) {
+        if (devices.contains(device) && groups.contains(group)) {
+            group.removeDevice(device);
+        } else   {
+            throw new IllegalArgumentException("device or group not added");
+        }
+    }
+
+
 
     /**
      * 通过名称移除设备组
@@ -179,7 +314,7 @@ public class SmartHomeHub {
     /**
      * 通过名称获取场景
      *
-     * @param name 场景名称
+     * @param name scene name
      * @return 找到的场景，如果不存在返回null
      */
     public Scene getSceneByName(String name) {
@@ -196,7 +331,7 @@ public class SmartHomeHub {
      * 执行指定名称的场景
      * 根据场景配置，查找设备并设置为目标状态
      *
-     * @param name 场景名称
+     * @param name scene name
      */
     public void executeScene(String name) {
         Scene scene = getSceneByName(name);
@@ -480,4 +615,6 @@ public class SmartHomeHub {
             }
         }
     }
+
+
 }
