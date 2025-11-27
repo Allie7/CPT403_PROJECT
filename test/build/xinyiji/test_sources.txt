@@ -1,0 +1,1 @@
+/Users/mac/Desktop/CPT403_PROJECT/test/src/tests/com/yulusi/tests/suites/SmartHomeSpecificationTests.java
