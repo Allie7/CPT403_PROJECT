@@ -31,7 +31,7 @@ public class DeviceGroup {
             throw new IllegalArgumentException("Device list cannot be null or empty");
         }
 
-        // 检查所有设备是否为同一类型
+        // Verify that all devices are of the same type.
         this.type = devices.get(0).getType();
         for (SmartDevice device : devices) {
             if (!device.getType().equals(this.type)) {
@@ -46,28 +46,28 @@ public class DeviceGroup {
 
 
     /**
-     * 获取设备组名称
+     * Get the name of the device group
      *
-     * @return 设备组名称
+     * @return Device Group Name
      */
     public String getName() {
         return name;
     }
 
     /**
-     * 获取设备组类型
+     * Gets the device group type
      *
-     * @return 设备组类型
+     * @return device group type
      */
     public String getType() {
         return type;
     }
 
     /**
-     * 向设备组添加设备
+     * Add devices to the device group
      *
-     * @param device 要添加的设备
-     * @throws IllegalArgumentException 如果设备类型不匹配或设备为null
+     * @param device Devices to be added
+     * @throws IllegalArgumentException If the device type does not match or the device is null
      */
     public void addDevice(SmartDevice device) {
         if (device == null) {
@@ -82,9 +82,9 @@ public class DeviceGroup {
     }
 
     /**
-     * 从设备组移除设备
+     * Remove device from device group
      *
-     * @param device 要移除的设备
+     * @param device Devices to be removed
      */
     public void removeDevice(SmartDevice device) {
         if (device != null) {
@@ -93,9 +93,9 @@ public class DeviceGroup {
     }
 
     /**
-     * 对组内所有设备应用相同的状态
+     * Apply the same status to all devices within the group.
      *
-     * @param state 要应用的状态
+     * @param state The state to be applied
      */
     public void applyToAll(String state) {
         if (state == null) {
@@ -107,10 +107,10 @@ public class DeviceGroup {
     }
 
     /**
-     * 对组内所有灯光设备设置亮度
+     * Set the brightness for all lighting equipment within the group.
      *
-     * @param brightness 亮度值（0-100）
-     * @throws IllegalArgumentException 如果设备类型不是Light或亮度值无效
+     * @param brightness Brightness value (0-100)
+     * @throws IllegalArgumentException If the device type is not Light or the brightness value is invalid
      */
     public void applyToAll(Integer brightness) {
         if (!this.type.equals("Light")) {
@@ -125,10 +125,10 @@ public class DeviceGroup {
     }
 
     /**
-     * 对组内所有温控器设备设置温度
+     * Set the temperature for all thermostat devices within the group.
      *
-     * @param temperature 温度值（摄氏度）
-     * @throws IllegalArgumentException 如果设备类型不是Thermostat或温度值无效
+     * @param temperature Temperature value (degrees Celsius)
+     * @throws IllegalArgumentException If the device type is not a Thermostat or the temperature value is invalid
      */
     public void applyToAll(Double temperature) {
         if (!this.type.equals("Thermostat")) {
@@ -143,9 +143,9 @@ public class DeviceGroup {
     }
 
     /**
-     * 返回设备组的字符串表示
+     * String representation returned to the device group
      *
-     * @return 包含所有设备信息的字符串
+     * @return A string containing all device information
      */
     @Override
     public String toString() {
@@ -157,35 +157,35 @@ public class DeviceGroup {
     }
 
     /**
-     * 获取设备列表（返回副本以保护内部数据）
+     * Retrieve device list (return a copy to protect internal data)
      *
-     * @return 设备列表的副本
+     * @return Copy of the device list
      */
     public List<SmartDevice> getDevices() {
         return new ArrayList<>(this.devices);
     }
 
     /**
-     * 检查设备组是否包含指定设备
+     * Check whether the device group contains the specified device
      *
-     * @param device 要检查的设备
-     * @return 如果包含该设备返回true
+     * @param device Equipment to be inspected
+     * @return If the device is included, return true.
      */
     public boolean containsDevice(SmartDevice device) {
         return devices.contains(device);
     }
 
     /**
-     * 获取设备组中的设备数量
+     * Get the number of devices in a device group
      *
-     * @return 设备数量
+     * @return Number of devices
      */
     public int getDeviceCount() {
         return devices.size();
     }
 
     /**
-     * 清空设备组中的所有设备
+     * Clear all devices from the device group
      */
     public void clearDevices() {
         devices.clear();
