@@ -8,7 +8,7 @@ FRAMEWORK_SRC="$ROOT_DIR/src/framework"
 TEST_SRC="$ROOT_DIR/src/tests"
 
 typeset -a BRANCH_SOURCES=(
-  "main:/Users/mac/Downloads/CPT403_PROJECT-main/SmartHomeManagementSystem/src"
+  "main:$(cd "$(dirname "$0")/.." && pwd)/SmartHomeManagementSystem/src"
   "xinyiji:/Users/mac/Desktop/CPT403_PROJECT/CPT403_PROJECT-XinyiJi/SmartHomeManagementSystem/src"
   "yuxuanxie:/Users/mac/Desktop/CPT403_PROJECT/CPT403_PROJECT-YuxuanXie/SmartHomeManagementSystem/src"
 )

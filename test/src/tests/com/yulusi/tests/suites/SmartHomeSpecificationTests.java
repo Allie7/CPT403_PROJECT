@@ -55,6 +55,12 @@ public final class SmartHomeSpecificationTests {
             Assertions.assertEquals("on", light.getState(), "turnOn should switch to on");
             light.setBrightness(40);
             Assertions.assertEquals(40, light.getBrightness(), "Brightness should be updated");
+            // Test boundary values
+            light.setBrightness(0);
+            Assertions.assertEquals(0, light.getBrightness(), "Brightness 0 should be valid");
+            light.setBrightness(100);
+            Assertions.assertEquals(100, light.getBrightness(), "Brightness 100 should be valid");
+            // Test invalid values
             Assertions.assertThrows(IllegalArgumentException.class,
                     () -> light.setBrightness(-1),
                     "Brightness below 0 must be rejected");
@@ -71,6 +77,14 @@ public final class SmartHomeSpecificationTests {
             thermostat.setTemperature(23.5);
             Assertions.assertEquals(23.5, thermostat.getTemperature(), 0.001,
                     "Thermostat should hold the configured temperature");
+            // Test boundary values
+            thermostat.setTemperature(0.0);
+            Assertions.assertEquals(0.0, thermostat.getTemperature(), 0.001,
+                    "Temperature 0.0°C should be valid");
+            thermostat.setTemperature(40.0);
+            Assertions.assertEquals(40.0, thermostat.getTemperature(), 0.001,
+                    "Temperature 40.0°C should be valid");
+            // Test invalid values
             Assertions.assertThrows(IllegalArgumentException.class,
                     () -> thermostat.setTemperature(-5),
                     "Thermostat must reject values below 0°C");
