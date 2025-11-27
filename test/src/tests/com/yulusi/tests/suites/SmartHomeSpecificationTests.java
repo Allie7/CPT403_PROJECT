@@ -8,6 +8,7 @@ import SmartHomeManagementSystem.User;
 import com.yulusi.tests.framework.Assertions;
 import com.yulusi.tests.framework.TestHarness;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -99,7 +100,7 @@ public final class SmartHomeSpecificationTests {
             SmartLight light = new SmartLight(branchName + "-light");
             SmartThermostat thermostat = new SmartThermostat(branchName + "-thermo");
             Assertions.assertThrows(IllegalArgumentException.class,
-                    () -> user.createGroup("Mixed-" + branchName, List.of(light, thermostat)),
+                    () -> user.createGroup("Mixed-" + branchName, new ArrayList<>(List.of(light, thermostat))),
                     "Mixed device types must not be allowed in a single group");
         });
     }
@@ -111,7 +112,7 @@ public final class SmartHomeSpecificationTests {
             SmartLight lightB = new SmartLight(branchName + "-lightB");
             user.addDeviceToHub(lightA);
             user.addDeviceToHub(lightB);
-            user.createGroup("LivingLights-" + branchName, List.of(lightA, lightB));
+            user.createGroup("LivingLights-" + branchName, new ArrayList<>(List.of(lightA, lightB)));
             user.manageGroup("LivingLights-" + branchName, 25);
             Assertions.assertEquals("on", lightA.getState(), "Group brightness update should turn lights on");
             Assertions.assertEquals("on", lightB.getState(), "Group brightness update should turn lights on");
@@ -127,7 +128,7 @@ public final class SmartHomeSpecificationTests {
             SmartThermostat thermostatB = new SmartThermostat(branchName + "-thermostatB");
             user.addDeviceToHub(thermostatA);
             user.addDeviceToHub(thermostatB);
-            user.createGroup("Heat-" + branchName, List.of(thermostatA, thermostatB));
+            user.createGroup("Heat-" + branchName, new ArrayList<>(List.of(thermostatA, thermostatB)));
             user.manageGroup("Heat-" + branchName, 19.0);
             Assertions.assertEquals("on", thermostatA.getState(), "Managing group should wake thermostat A");
             Assertions.assertEquals("on", thermostatB.getState(), "Managing group should wake thermostat B");
