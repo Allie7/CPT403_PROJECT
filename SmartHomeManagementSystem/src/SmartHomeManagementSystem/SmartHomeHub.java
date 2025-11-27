@@ -7,8 +7,8 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 /**
- * 智能家居中枢类
- * 系统的核心控制器，负责管理所有设备、设备组和场景
+ * Smart Home Hub Category
+ * The core controller of the system, responsible for managing all devices, device groups, and scenes
  *
  */
 public class SmartHomeHub {
@@ -17,11 +17,11 @@ public class SmartHomeHub {
     private List<Scene> scenes;
 
     /**
-     * 构造方法（带参数）
+     * Constructor (with parameters)
      *
-     * @param groups 设备组列表
-     * @param devices 设备列表
-     * @param scenes 场景列表
+     * @param groups List of device groups
+     * @param devices List of devices
+     * @param scenes List of scenes
      */
     protected SmartHomeHub(List<DeviceGroup> groups, List<SmartDevice> devices, List<Scene> scenes) {
         this.groups = groups != null ? new ArrayList<>(groups) : new ArrayList<>();
@@ -30,8 +30,8 @@ public class SmartHomeHub {
     }
 
     /**
-     * 默认构造方法
-     * 创建一个空的智能家居中枢
+     * Default constructor
+     * Creates an empty smart home hub
      */
     protected SmartHomeHub() {
         this.devices = new ArrayList<>();
@@ -39,12 +39,12 @@ public class SmartHomeHub {
         this.scenes = new ArrayList<>();
     }
 
-    // ==================== 设备管理方法 ====================
+    // ==================== Equipment Management Method ====================
 
     /**
-     * 通过名称添加设备到中枢
+     * Add a device to the hub by name
      *
-     * @param name 设备名称
+     * @param name Device name
      */
     protected void addDevice(String name) {
         SmartDevice device = findDeviceByName(name);
@@ -54,9 +54,9 @@ public class SmartHomeHub {
     }
 
     /**
-     * 添加设备到中枢
+     * Add device to hub
      *
-     * @param device 要添加的设备
+     * @param device The device to add
      */
     protected void addDevice(SmartDevice device) {
         if (device != null && !devices.contains(device)) {
@@ -65,10 +65,10 @@ public class SmartHomeHub {
     }
 
     /**
-     * 通过名称移除设备
-     * 同时从所有包含该设备的设备组中移除
+     * Remove device by name
+     * Simultaneously remove from all device groups containing this device
      *
-     * @param name 设备名称
+     * @param name Device name
      */
     protected void removeDevice(String name) {
         SmartDevice device = findDeviceByName(name);
@@ -83,9 +83,9 @@ public class SmartHomeHub {
     }
 
     /**
-     * 移除设备
+     * Remove Device
      *
-     * @param device 要移除的设备
+     * @param device The device to be removed
      */
     protected void removeDevice(SmartDevice device) {
         if (device != null) {
@@ -94,10 +94,10 @@ public class SmartHomeHub {
     }
 
     /**
-     * 通过名称查找设备
+     * Find device by name
      *
-     * @param name 设备名称
-     * @return 找到的设备，如果不存在返回null
+     * @param name Device name
+     * @return Found device; returns null if not found
      */
     protected SmartDevice findDeviceByName(String name) {
         for (SmartDevice device : devices) {
@@ -122,13 +122,13 @@ public class SmartHomeHub {
         return null;
     }
 
-    // ==================== 设备组管理方法 ====================
+    // ==================== Equipment Group Management Method ====================
 
     /**
-     * 添加设备组到中枢
-     * 如果设备组中的设备不在中枢中，会自动添加
+     * Add device group to hub
+     * If devices in the group are not present in the hub, they will be added automatically
      *
-     * @param group 要添加的设备组
+     * @param group The device group to add
      */
     protected void addGroup(DeviceGroup group) {
         if (group != null && !groups.contains(group)) {
@@ -261,9 +261,9 @@ public class SmartHomeHub {
 
 
     /**
-     * 通过名称移除设备组
+     * Remove a device group by name
      *
-     * @param group_name 设备组名称
+     * @param group_name The name of the device group
      */
     protected void removeGroup(String group_name) {
         DeviceGroup group = getGroupByName(group_name);
@@ -273,9 +273,9 @@ public class SmartHomeHub {
     }
 
     /**
-     * 移除设备组
+     * Remove Device Group
      *
-     * @param group 要移除的设备组
+     * @param group The device group to be removed
      */
     protected void removeGroup(DeviceGroup group) {
         if (group != null) {
@@ -284,10 +284,10 @@ public class SmartHomeHub {
     }
 
     /**
-     * 通过名称获取设备组
+     * Retrieve a device group by name
      *
-     * @param name 设备组名称
-     * @return 找到的设备组，如果不存在返回null
+     * @param name The device group name
+     * @return The found device group. Returns null if it does not exist.
      */
     public DeviceGroup getGroupByName(String name) {
         for (DeviceGroup group : groups) {
@@ -298,12 +298,12 @@ public class SmartHomeHub {
         return null;
     }
 
-    // ==================== 场景管理方法 ====================
+    // ==================== Scene Management Methodology ====================
 
     /**
-     * 添加场景到中枢
+     * Add scene to hub
      *
-     * @param scene 要添加的场景
+     * @param scene The scene to be added
      */
     public void addScene(Scene scene) {
         if (scene != null && !scenes.contains(scene)) {
@@ -312,10 +312,10 @@ public class SmartHomeHub {
     }
 
     /**
-     * 通过名称获取场景
+     * Get Scene by Name
      *
      * @param name scene name
-     * @return 找到的场景，如果不存在返回null
+     * @return Found scene. Returns null if not found.
      */
     public Scene getSceneByName(String name) {
         for (Scene scene : scenes) {
@@ -328,63 +328,63 @@ public class SmartHomeHub {
 
 
     /**
-     * 执行指定名称的场景
-     * 根据场景配置，查找设备并设置为目标状态
+     * Execute the scene with the specified name
+     * Locate devices based on scene configuration and set them to the target state
      *
      * @param name scene name
      */
     public void executeScene(String name) {
         Scene scene = getSceneByName(name);
         if (scene != null) {
-            // 标记场景为激活状态
+            // Mark the scene as active
             scene.setState("active");
 
-            // 遍历场景中的所有设备配置
+            // Iterate through all device configurations in the scene
             Map<String, String> deviceStates = scene.getDeviceStates();
             for (Map.Entry<String, String> entry : deviceStates.entrySet()) {
                 String deviceName = entry.getKey();
                 String targetValue = entry.getValue();
 
-                // 通过 Hub 查找设备
+                // Find devices through the Hub
                 SmartDevice device = findDeviceByName(deviceName);
                 if (device != null) {
                     try {
-                        // 根据设备类型和目标值类型，选择合适的方法
+                        // Select the appropriate method based on the device type and target value type.
                         if (device instanceof SmartLight) {
-                            // 灯光设备：尝试解析为亮度值
+                            // Lighting equipment: Attempt to parse as brightness values
                             if (isNumeric(targetValue)) {
                                 int brightness = Integer.parseInt(targetValue);
                                 ((SmartLight) device).turnOn();
                                 ((SmartLight) device).setBrightness(brightness);
                             } else {
-                                // 如果不是数字，当作状态处理（on/off）
+                                // If it's not a number, treat it as a state (on/off).
                                 device.setState(targetValue);
                             }
                         } else if (device instanceof SmartThermostat) {
-                            // 温控器设备：尝试解析为温度值
+                            // Thermostat device: Attempt to interpret as a temperature value
                             if (isNumeric(targetValue)) {
                                 double temperature = Double.parseDouble(targetValue);
                                 ((SmartThermostat) device).turnOn();
                                 ((SmartThermostat) device).setTemperature(temperature);
                             } else {
-                                // 如果不是数字，当作状态处理（on/off）
+                                // If it's not a number, treat it as a state (on/off).
                                 device.setState(targetValue);
                             }
                         } else {
-                            // 其他设备（如门锁）：直接设置状态
+                            // Other devices (e.g., door locks): Set the status directly.
                             device.setState(targetValue);
                         }
                     } catch (RuntimeException e) {
-                        // 如果状态/数值不合法，记录错误但继续执行其他设备
+                        // If the status/value is invalid, log the error but continue executing other devices.
                         System.err.println("Failed to set " + deviceName + " to " + targetValue + ": " + e.getMessage());
                     }
                 } else {
-                    // 设备不存在，记录警告
+                    // Device does not exist. Log warning.
                     System.err.println("Device not found in scene '" + name + "': " + deviceName);
                 }
             }
 
-            // 执行完成后可以将状态改回 inactive（可选）
+            // After execution completes, the status can be changed back to inactive (optional).
             // scene.setState("inactive");
         } else {
             throw new IllegalArgumentException("Scene not found: " + name);
@@ -392,10 +392,10 @@ public class SmartHomeHub {
     }
 
     /**
-     * 辅助方法：判断字符串是否为数字
+     * Auxiliary Method: Determine if a string is numeric
      *
-     * @param str 要判断的字符串
-     * @return 如果是数字返回true
+     * @param str The string to be evaluated
+     * @return true if the string is numeric
      */
     private boolean isNumeric(String str) {
         if (str == null || str.trim().isEmpty()) {
@@ -409,39 +409,39 @@ public class SmartHomeHub {
         }
     }
 
-    // ==================== Getter方法 ====================
+    // ==================== Getter method ====================
 
     /**
-     * 获取所有设备列表（返回副本）
+     * Get all device list (returns a copy)
      *
-     * @return 设备列表的副本
+     * @return A copy of the device list
      */
     public List<SmartDevice> getDevices() {
         return new ArrayList<>(devices);
     }
 
     /**
-     * 获取所有设备组列表（返回副本）
+     * Get all device group lists (returns a copy)
      *
-     * @return 设备组列表的副本
+     * @return A copy of the device group list
      */
     public List<DeviceGroup> getGroups() {
         return new ArrayList<>(groups);
     }
 
     /**
-     * 获取所有场景列表（返回副本）
+     * Get all scene lists (returns a copy)
      *
-     * @return 场景列表的副本
+     * @return A copy of the scene list
      */
     public List<Scene> getScenes() {
         return new ArrayList<>(scenes);
     }
 
-    // ==================== 查看方法 ====================
+    // ==================== View Method ====================
 
     /**
-     * 显示所有设备的信息
+     * Display information for all devices
      */
     protected void viewAllDevices() {
         for (SmartDevice device : devices) {
@@ -450,7 +450,7 @@ public class SmartHomeHub {
     }
 
     /**
-     * 显示所有设备组的信息
+     * Display information for all device groups
      */
     protected void viewAllGroups() {
         for (DeviceGroup group : groups) {
@@ -458,14 +458,14 @@ public class SmartHomeHub {
         }
     }
 
-    // ==================== 设备控制方法 ====================
+    // ==================== Equipment Control Method ====================
 
     /**
-     * 控制单个设备的状态
+     * Control the state of a single device
      *
-     * @param name 设备名称
-     * @param state 目标状态
-     * @throws IllegalArgumentException 如果设备不存在
+     * @param name Device name
+     * @param state Target state
+     * @throws IllegalArgumentException If the device does not exist
      */
     protected void controlDevice(String name, String state) {
         state = state.toLowerCase();
@@ -478,11 +478,11 @@ public class SmartHomeHub {
     }
 
     /**
-     * 设置灯光设备的亮度
+     * Set the brightness of a lighting device
      *
-     * @param name 设备名称
-     * @param brightness 亮度值（0-100）
-     * @throws IllegalArgumentException 如果设备不存在或不是灯光设备
+     * @param name Device name
+     * @param brightness Brightness value (0-100)
+     * @throws IllegalArgumentException If the device does not exist or is not a lighting device
      */
     protected void controlDevice(String name, int brightness) {
         SmartDevice currentDevice = findDeviceByName(name);
@@ -495,11 +495,11 @@ public class SmartHomeHub {
     }
 
     /**
-     * 设置温控器设备的温度
+     * Set the temperature of the thermostat device
      *
-     * @param name 设备名称
-     * @param temperature 目标温度
-     * @throws IllegalArgumentException 如果设备不存在或不是温控器设备
+     * @param name Device name
+     * @param temperature Target temperature
+     * @throws IllegalArgumentException If the device does not exist or is not a thermostat device
      */
     protected void controlDevice(String name, Double temperature) {
         SmartDevice currentDevice = findDeviceByName(name);
@@ -511,14 +511,14 @@ public class SmartHomeHub {
         }
     }
 
-    // ==================== 设备组控制方法 ====================
+    // ==================== Equipment Group Control Method ====================
 
     /**
-     * 管理设备组状态
+     * Manage Device Group State
      *
-     * @param name 设备组名称
-     * @param state 目标状态
-     * @throws IllegalArgumentException 如果设备组不存在
+     * @param name Device group name
+     * @param state Target state
+     * @throws IllegalArgumentException If the device group does not exist
      */
     public void manageGroup(String name, String state) {
         DeviceGroup currentGroup = getGroupByName(name);
@@ -530,11 +530,11 @@ public class SmartHomeHub {
     }
 
     /**
-     * 设置温控器设备组的温度
+     * Set the temperature for the thermostat device group
      *
-     * @param name 设备组名称
-     * @param temperature 目标温度
-     * @throws IllegalArgumentException 如果设备组不存在或类型不匹配
+     * @param name Device group name
+     * @param temperature Target temperature
+     * @throws IllegalArgumentException If the device group does not exist or the type does not match
      */
     public void manageGroup(String name, Double temperature) {
         DeviceGroup currentGroup = getGroupByName(name);
@@ -547,11 +547,11 @@ public class SmartHomeHub {
     }
 
     /**
-     * 设置灯光设备组的亮度
+     * Set the brightness of a lighting device group
      *
-     * @param name 设备组名称
-     * @param brightness 亮度值（0-100）
-     * @throws IllegalArgumentException 如果设备组不存在或类型不匹配
+     * @param name Device group name
+     * @param brightness Brightness value (0-100)
+     * @throws IllegalArgumentException If the device group does not exist or the type does not match
      */
     public void manageGroup(String name, int brightness) {
         DeviceGroup currentGroup = getGroupByName(name);
@@ -563,13 +563,13 @@ public class SmartHomeHub {
         }
     }
 
-    // ==================== 查看设备状态方法 ====================
+    // ==================== Methods for Checking Device Status ====================
 
     /**
-     * 查看单个设备的详细状态
+     * View detailed status of a single device
      *
-     * @param currentDevice 要查看的设备
-     * @throws IllegalArgumentException 如果设备不存在
+     * @param currentDevice The device to view
+     * @throws IllegalArgumentException If the device does not exist
      */
     public void viewSingleDevice(SmartDevice currentDevice) {
         if (currentDevice != null) {
@@ -587,11 +587,11 @@ public class SmartHomeHub {
     }
 
     /**
-     * 查看设备状态
-     * 支持查看单个设备、设备组或所有设备（使用"ALL"）
+     * View Device Status
+     * Supports viewing individual devices, device groups, or all devices (using “ALL”)
      *
-     * @param name 设备名称、设备组名称或"ALL"
-     * @throws IllegalArgumentException 如果指定的名称不存在
+     * @param name Device name, device group name, or “ALL”
+     * @throws IllegalArgumentException If the specified name does not exist
      */
     public void viewDeviceState(String name) {
         if (name.equals("ALL")) {
