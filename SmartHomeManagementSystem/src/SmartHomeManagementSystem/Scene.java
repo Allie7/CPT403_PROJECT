@@ -4,26 +4,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 场景类
- * 用于定义和存储预设的设备状态组合配置
- * 例如："电影之夜"场景可能包括调暗客厅灯光、锁定前门等操作
+ * Scene Class
+ * Used to define and store preconfigured combinations of device states
+ * Example: A “Movie Night” scene might include dimming living room lights, locking the front door, and other actions
  *
- * 注意：Scene 只是一个配置类，实际的设备控制由 SmartHomeHub 执行
+ * Note: Scene is merely a configuration class; actual device control is executed by SmartHomeHub
  *
  */
 public class Scene {
-    // 私有属性
+    //  Private property
     private String name;
     private String description;
-    private Map<String, String> deviceStates; // 设备名称 → 目标状态的映射
-    protected String state; // 场景状态（如：active, inactive等）
+    private Map<String, String> deviceStates; // Equipment Name → Target State Mapping
+    protected String state; // Scene state (e.g., active, inactive, etc.)
 
     /**
-     * 构造方法
-     * 通过设备状态映射创建场景
+     * Constructor
+     * Create a scene via device state mapping
      *
      * @param name scene name
-     * @param device_states 设备名称到目标状态的映射
+     * @param device_states mapping from device names to target states
      */
     public Scene(String name, Map<String, String> device_states) {
         if (name == null || name.trim().isEmpty()) {
@@ -31,9 +31,9 @@ public class Scene {
         }
         this.name = name;
         this.description = "";
-        this.state = "inactive"; // 默认场景状态为未激活
+        this.state = "inactive"; // The default scene state is inactive.
 
-        // 存储设备状态配置（深拷贝以保护数据）
+        // Storage Device Status Configuration (Deep Copy for Data Protection)
         if (device_states != null) {
             this.deviceStates = new HashMap<>(device_states);
         } else {
@@ -41,13 +41,13 @@ public class Scene {
         }
     }
 
-    // ==================== 设备状态配置管理 ====================
+    // ==================== Equipment Status Configuration Management ====================
 
     /**
-     * 添加或更新设备状态配置
+     * Add or update device state configuration
      *
-     * @param deviceName 设备名称
-     * @param targetState 目标状态
+     * @param deviceName Device name
+     * @param targetState Target state
      */
     public void addDeviceState(String deviceName, String targetState) {
         if (deviceName == null || deviceName.trim().isEmpty()) {
@@ -60,9 +60,9 @@ public class Scene {
     }
 
     /**
-     * 移除设备状态配置
+     * Remove device status configuration
      *
-     * @param deviceName 设备名称
+     * @param deviceName Device name
      */
     public void removeDeviceState(String deviceName) {
         if (deviceName != null) {
@@ -71,45 +71,45 @@ public class Scene {
     }
 
     /**
-     * 获取指定设备的目标状态
+     * Retrieve the target state of a specified device
      *
-     * @param deviceName 设备名称
-     * @return 目标状态，如果设备不在场景中返回null
+     * @param deviceName Device name
+     * @return Target state. Returns null if the device is not present in the scene.
      */
     public String getDeviceState(String deviceName) {
         return deviceStates.get(deviceName);
     }
 
     /**
-     * 获取所有设备状态配置（返回副本以保护内部数据）
+     * Retrieve all device state configurations (returns a copy to protect internal data)
      *
-     * @return 设备状态映射的副本
+     * @return A copy of the device state map
      */
     public Map<String, String> getDeviceStates() {
         return new HashMap<>(deviceStates);
     }
 
     /**
-     * 检查场景中是否包含指定设备
+     * Check if the scene contains the specified device
      *
-     * @param deviceName 设备名称
-     * @return 如果包含该设备返回true
+     * @param deviceName Device name
+     * @return Returns true if the device is present
      */
     public boolean containsDevice(String deviceName) {
         return deviceStates.containsKey(deviceName);
     }
 
     /**
-     * 获取场景中的设备数量
+     * Get the number of devices in the scene
      *
-     * @return 设备数量
+     * @return Number of devices
      */
     public int getDeviceCount() {
         return deviceStates.size();
     }
 
     /**
-     * 清空场景中的所有设备配置
+     * Clear all device configurations in the scene
      */
     public void clearDeviceStates() {
         deviceStates.clear();
@@ -118,7 +118,7 @@ public class Scene {
     // ==================== Getter和Setter方法 ====================
 
     /**
-     * 获取场景名称
+     * Get Scene Name
      *
      * @return scene name
      */
@@ -127,7 +127,7 @@ public class Scene {
     }
 
     /**
-     * 设置场景名称
+     * Set scene name
      *
      * @param name scene name
      */
@@ -139,36 +139,36 @@ public class Scene {
     }
 
     /**
-     * 获取场景描述
+     * Get Scene Description
      *
-     * @return 场景描述
+     * @return Scene description
      */
     public String getDescription() {
         return description;
     }
 
     /**
-     * 设置场景描述
+     * Set Scene Description
      *
-     * @param description 场景描述
+     * @param description Scene description
      */
     public void setDescription(String description) {
         this.description = description;
     }
 
     /**
-     * 获取场景状态
+     * Get scene state
      *
-     * @return 场景状态（如：active, inactive）
+     * @return Scene state (e.g., active, inactive)
      */
     public String getState() {
         return state;
     }
 
     /**
-     * 设置场景状态
+     * Set Scene State
      *
-     * @param state 场景状态
+     * @param state Scene state
      */
     public void setState(String state) {
         if (state == null || state.trim().isEmpty()) {
@@ -178,9 +178,9 @@ public class Scene {
     }
 
     /**
-     * 返回场景的字符串表示
+     * String representation of the scene
      *
-     * @return 包含场景名称、状态和设备配置的格式化字符串
+     * @return Formatted string containing the scene name, status, and device configuration
      */
     @Override
     public String toString() {

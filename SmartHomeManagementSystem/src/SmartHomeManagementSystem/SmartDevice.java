@@ -4,24 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 智能设备抽象基类
- * 所有具体智能设备类型（如灯、thermostat等）都应继承此类
+ * Smart Device Abstract Base Class
+ * All concrete smart device types (such as lights, thermostats, etc.) should inherit from this class.
  *
  */
 public abstract class SmartDevice {
-    // 私有属性 - 修改access modifier从protected改为private，符合封装原则
+    // Private Properties - Modified the access modifier from protected to private to comply with the encapsulation principle.
     private String name;
     private String type;
     private String state;
 
-    // 合法状态列表（子类可以覆盖）
+    // List of Valid States (Subclasses may override)
     public static String[] legalStates = {"on","off"};
 
     /**
-     * 构造方法
+     * Constructor
      *
-     * @param name 设备名称（唯一标识）
-     * @param type 设备类型（如Light, Thermostat, Lock）
+     * @param name Device name (unique identifier)
+     * @param type Device type (e.g., Light, Thermostat, Lock)
      */
     public SmartDevice(String name, String type) {
         if (name == null || name.trim().isEmpty()) {
@@ -32,72 +32,72 @@ public abstract class SmartDevice {
         }
         this.name = name;
         this.type = type;
-        this.state = "off"; // 默认状态为关闭
+        this.state = "off"; // The default state is off.
     }
 
     /**
-     * 获取设备名称
+     * Get Device Name
      *
-     * @return 设备名称
+     * @return Device name
      */
     public String getName() {
         return this.name;
     }
 
     /**
-     * 获取设备类型
+     * Get device type
      *
-     * @return 设备类型
+     * @return Device type
      */
     public String getType() {
         return this.type;
     }
 
     /**
-     * 获取设备当前状态
+     * Get the device's current status
      *
-     * @return 设备状态
+     * @return Device status
      */
     public String getState() {
         return this.state;
     }
 
     /**
-     * 设置设备状态
-     * 注意：此方法会验证状态的合法性
+     * Set Device State
+     * Note: This method validates the state's legitimacy
      *
-     * @param state 要设置的状态
-     * @throws IllegalArgumentException 如果状态不合法
+     * @param state The state to set
+     * @throws IllegalArgumentException If the state is invalid
      */
     public void setState(String state) {
         if (state == null) {
             throw new IllegalArgumentException("State cannot be null");
         }
-        // 状态验证由子类实现（因为每个设备有不同的合法状态）
+        // State validation is implemented by subclasses (since each device has distinct valid states).
         this.state = state.toLowerCase();
     }
 
     /**
-     * 打开设备（抽象方法，由子类实现具体逻辑）
+     * Open Device (abstract method, with concrete logic implemented by subclasses)
      */
     public abstract void turnOn();
 
     /**
-     * 关闭设备（抽象方法，由子类实现具体逻辑）
+     * Shut down the device (abstract method; concrete implementation provided by subclasses)
      */
     public abstract void turnOff();
 
     /**
-     * 检查设备是否处于开启状态
+     * Check whether the equipment is turned on.
      *
-     * @return 如果设备状态为"on"返回true，否则返回false
+     * @return If the device status is “on”, return true; otherwise, return false.
      */
     public boolean isOn() {
         return "on".equalsIgnoreCase(state);
     }
 
     /**
-     * 切换设备状态（开/关）
+     * Switch device status (on/off)
      */
     public void toggle() {
         if (isOn()) {
@@ -108,9 +108,9 @@ public abstract class SmartDevice {
     }
 
     /**
-     * 返回设备的字符串表示
+     * Return a string representation of the device
      *
-     * @return 包含设备名称、类型和状态的格式化字符串
+     * @return A formatted string containing the device name, type, and status
      */
     @Override
     public String toString() {
@@ -119,11 +119,11 @@ public abstract class SmartDevice {
     }
 
     /**
-     * 判断两个设备是否相等
-     * 基于设备名称和类型判断
+     * Determine if two devices are equal
+     * Based on device name and type
      *
-     * @param obj 要比较的对象
-     * @return 如果设备名称和类型相同返回true
+     * @param obj The object to compare
+     * @return true if the device name and type are identical
      */
     @Override
     public boolean equals(Object obj) {

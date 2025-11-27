@@ -4,33 +4,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 智能灯光类 - SmartDevice的具体实现
- * 继承自抽象类SmartDevice，提供灯光特定的功能
+ * Smart Lighting Category - Specific Implementation of SmartDevice
+ * Inherits from the abstract class SmartDevice, providing lighting-specific functionality
  *
  */
 public class SmartLight extends SmartDevice {
-    // 亮度范围常量
+    // Luminance Range Constant
     private static final int MIN_BRIGHTNESS = 0;
     private static final int MAX_BRIGHTNESS = 100;
 
-    private int brightness; // 亮度 0-100
+    private int brightness; // Brightness 0-100
     private static ArrayList<String> legal_states = new ArrayList<>(List.of("on","off"));
 
     /**
-     * 构造方法
+     * Constructor
      *
-     * @param name 灯光设备名称
+     * @param name Lighting device name
      */
     public SmartLight(String name) {
         super(name, "Light");
-        this.brightness = 100; // 默认亮度为100%
+        this.brightness = 100; // Default brightness is 100%.
     }
 
     /**
-     * 设置灯光状态
+     * Set Light State
      *
-     * @param state 要设置的状态（on/off）
-     * @throws IllegalArgumentException 如果状态不合法
+     * @param state The state to set (on/off)
+     * @throws IllegalArgumentException If the state is invalid
      */
     @Override
     public void setState(String state) {
@@ -45,7 +45,7 @@ public class SmartLight extends SmartDevice {
     }
 
     /**
-     * 打开灯光
+     * Turn on the lights
      */
     @Override
     public void turnOn() {
@@ -53,7 +53,7 @@ public class SmartLight extends SmartDevice {
     }
 
     /**
-     * 关闭灯光
+     * Turn off the lights
      */
     @Override
     public void turnOff() {
@@ -61,11 +61,11 @@ public class SmartLight extends SmartDevice {
     }
 
     /**
-     * 设置灯光亮度
-     * 注意：设置亮度会自动打开灯光
+     * Set light brightness
+     * Note: Setting brightness will automatically turn on the lights
      *
-     * @param brightness 亮度值（0-100之间）
-     * @throws IllegalArgumentException 如果亮度值不在有效范围内
+     * @param brightness Brightness value (between 0 and 100)
+     * @throws IllegalArgumentException If the brightness value is not within the valid range
      */
     public void setBrightness(int brightness) {
         if (brightness < MIN_BRIGHTNESS || brightness > MAX_BRIGHTNESS) {
@@ -78,19 +78,19 @@ public class SmartLight extends SmartDevice {
     }
 
     /**
-     * 获取当前亮度
+     * Get current brightness
      *
-     * @return 当前亮度值（0-100）
+     * @return Current brightness value (0-100)
      */
     public int getBrightness() {
         return brightness;
     }
 
     /**
-     * 返回灯光设备的字符串表示
-     * 包含名称、类型、状态和亮度信息
+     * Return a string representation of the lighting device
+     * Contains name, type, status, and brightness information
      *
-     * @return 格式化的设备信息字符串
+     * @return Formatted device information string
      */
     @Override
     public String toString() {

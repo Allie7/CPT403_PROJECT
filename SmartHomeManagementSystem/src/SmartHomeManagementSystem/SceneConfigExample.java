@@ -4,128 +4,128 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 场景配置示例类
- * 提供预定义的常用场景配置
- * 创建多个设备
- * 使用预定义配置创建场景
- * 一键执行场景（同时控制多个设备）
- * 展示场景的实际应用价值
+ * Scene Configuration Example Class
+ * Provides predefined configurations for common scenarios
+ * Creates multiple devices
+ * Generates scenes using predefined configurations
+ * Executes scenes with one click (simultaneously controlling multiple devices)
+ * Demonstrates the practical value of scenes
  */
 public class SceneConfigExample {
 
     /**
-     * 创建"电影之夜"场景配置
-     * - 客厅灯：调暗到20%亮度
-     * - 卧室灯：关闭
-     * - 前门锁：锁定
-     * - 温控器：设置到22°C
+     * Create “Movie Night” scene configuration
+     * - Living room lights: Dim to 20% brightness
+     * - Bedroom lights: Turn off
+     * - Front door lock: Lock
+     * - Thermostat: Set to 22°C
      *
-     * @return 电影之夜场景的设备状态映射
+     * @return Device state mapping for Movie Night scene
      */
     public static Map<String, String> getMovieNightConfig() {
         Map<String, String> config = new HashMap<>();
-        config.put("客厅灯", "20");      // 亮度20%
-        config.put("卧室灯", "off");     // 关闭
-        config.put("前门锁", "locked");  // 锁定
-        config.put("温控器", "22");      // 22°C
+        config.put("Living Room Light", "20");      // Brightness 20%
+        config.put("Bedroom light", "off");     // Close
+        config.put("Front door lock", "locked");  // locked
+        config.put("Thermostat", "22");      // 22°C
         return config;
     }
 
     /**
-     * 创建"离家模式"场景配置
-     * - 所有灯：关闭
-     * - 所有锁：锁定
-     * - 温控器：设置到节能温度18°C
+     * Create “Away Mode” scene configuration
+     * - All lights: Off
+     * - All locks: Locked
+     * - Thermostat: Set to energy-saving temperature of 18°C
      *
-     * @return 离家模式场景的设备状态映射
+     * @return Device state mapping for Away Mode scene
      */
     public static Map<String, String> getLeavingHomeConfig() {
         Map<String, String> config = new HashMap<>();
-        config.put("客厅灯", "off");
-        config.put("卧室灯", "off");
-        config.put("厨房灯", "off");
-        config.put("前门锁", "locked");
-        config.put("后门锁", "locked");
-        config.put("温控器", "18");
+        config.put("Living Room Light", "off");
+        config.put("Bedroom light", "off");
+        config.put("Kitchen light", "off");
+        config.put("Front door lock", "locked");
+        config.put("Back door lock", "locked");
+        config.put("Thermostat", "18");
         return config;
     }
 
     /**
-     * 创建"睡眠模式"场景配置
-     * - 所有灯：关闭
-     * - 所有锁：锁定
-     * - 温控器：设置到舒适睡眠温度20°C
+     * Create “Sleep Mode” scene configuration
+     * - All lights: Off
+     * - All locks: Locked
+     * - Thermostat: Set to comfortable sleep temperature of 20°C
      *
-     * @return 睡眠模式场景的设备状态映射
+     * @return Device state mapping for Sleep Mode scene
      */
     public static Map<String, String> getSleepModeConfig() {
         Map<String, String> config = new HashMap<>();
-        config.put("客厅灯", "off");
-        config.put("卧室灯", "off");
-        config.put("前门锁", "locked");
-        config.put("后门锁", "locked");
-        config.put("温控器", "20");
+        config.put("Living Room Light", "off");
+        config.put("Bedroom light", "off");
+        config.put("Front door lock", "locked");
+        config.put("Back door lock", "locked");
+        config.put("Thermostat", "20");
         return config;
     }
 
     /**
-     * 创建"回家模式"场景配置
-     * - 客厅灯：打开到100%亮度
-     * - 前门锁：解锁
-     * - 温控器：设置到舒适温度23°C
+     * Create “Home Mode” scene configuration
+     * - Living room lights: Turn on at 100% brightness
+     * - Front door lock: Unlock
+     * - Thermostat: Set to comfortable temperature of 23°C
      *
-     * @return 回家模式场景的设备状态映射
+     * @return Device state mapping for Home Mode scene
      */
     public static Map<String, String> getWelcomeHomeConfig() {
         Map<String, String> config = new HashMap<>();
-        config.put("客厅灯", "100");
-        config.put("玄关灯", "on");
-        config.put("前门锁", "unlocked");
-        config.put("温控器", "23");
+        config.put("Living Room Light", "100");
+        config.put("Entranceway Light", "on");
+        config.put("Front door lock", "unlocked");
+        config.put("Thermostat", "23");
         return config;
     }
 
     /**
-     * 创建"派对模式"场景配置
-     * - 所有灯：最亮
-     * - 所有锁：解锁（方便客人进入）
-     * - 温控器：设置到凉爽温度21°C
+     * Create “Party Mode” scene configuration
+     * - All lights: Brightest setting
+     * - All locks: Unlocked (for guest access)
+     * - Thermostat: Set to cool temperature 21°C
      *
-     * @return 派对模式场景的设备状态映射
+     * @return Device state mapping for Party Mode scene
      */
     public static Map<String, String> getPartyModeConfig() {
         Map<String, String> config = new HashMap<>();
-        config.put("客厅灯", "100");
-        config.put("厨房灯", "100");
-        config.put("前门锁", "unlocked");
-        config.put("温控器", "21");
+        config.put("Living Room Light", "100");
+        config.put("Kitchen light", "100");
+        config.put("Front door lock", "unlocked");
+        config.put("Thermostat", "21");
         return config;
     }
 
     /**
-     * 示例：如何使用这些配置
+     * Example: How to use these configurations
      */
     public static void main(String[] args) {
-        // 创建用户
+        // Create User
         User user = new User("Alice");
 
-        // ==================== 步骤1：创建设备并添加到Hub ====================
-        System.out.println("=== 创建设备 ===");
+        // ==================== Step 1: Create a device and add it to the Hub  ====================
+        System.out.println("=== Created scene objects ===");
 
-        // 创建灯光设备
-        SmartLight livingRoomLight = new SmartLight("客厅灯");
-        SmartLight bedroomLight = new SmartLight("卧室灯");
-        SmartLight kitchenLight = new SmartLight("厨房灯");
-        SmartLight entranceLight = new SmartLight("玄关灯");
+        // Create Lighting Equipment
+        SmartLight livingRoomLight = new SmartLight("Living Room Light");
+        SmartLight bedroomLight = new SmartLight("Bedroom light");
+        SmartLight kitchenLight = new SmartLight("Kitchen light");
+        SmartLight entranceLight = new SmartLight("Entranceway Light");
 
-        // 创建门锁设备
-        SmartLock frontDoorLock = new SmartLock("前门锁");
-        SmartLock backDoorLock = new SmartLock("后门锁");
+        //  Create Door Lock Device
+        SmartLock frontDoorLock = new SmartLock("Front door lock");
+        SmartLock backDoorLock = new SmartLock("Back door lock");
 
-        // 创建温控器设备
-        SmartThermostat thermostat = new SmartThermostat("温控器");
+        // Create a thermostat device
+        SmartThermostat thermostat = new SmartThermostat("Thermostat");
 
-        // 添加设备到Hub
+        // Add device to Hub
         user.addDeviceToHub(livingRoomLight);
         user.addDeviceToHub(bedroomLight);
         user.addDeviceToHub(kitchenLight);
@@ -134,28 +134,28 @@ public class SceneConfigExample {
         user.addDeviceToHub(backDoorLock);
         user.addDeviceToHub(thermostat);
 
-        System.out.println("设备创建完成！\n");
+        System.out.println("Device creation complete!\n");
 
-        // ==================== 步骤2：使用预定义配置创建场景 ====================
-        System.out.println("=== 创建场景 ===");
+        // ==================== Step 2: Create a scene using a predefined configuration  ====================
+        System.out.println("=== Create Scene ===");
 
-        Scene movieNight = user.createScene("电影之夜", getMovieNightConfig());
-        System.out.println("场景 '电影之夜' 创建成功");
+        Scene movieNight = user.createScene("Movie Night", getMovieNightConfig());
+        System.out.println("Scene ‘Movie Night’ created successfully");
 
-        Scene sleepMode = user.createScene("睡眠模式", getSleepModeConfig());
-        System.out.println("场景 '睡眠模式' 创建成功");
+        Scene sleepMode = user.createScene("Sleep Mode", getSleepModeConfig());
+        System.out.println("Scenario ‘Sleep Mode’ created successfully");
 
-        Scene welcomeHome = user.createScene("回家模式", getWelcomeHomeConfig());
-        System.out.println("场景 '回家模式' 创建成功\n");
+        Scene welcomeHome = user.createScene("Home Mode", getWelcomeHomeConfig());
+        System.out.println("Scene ‘Home Mode’ created successfully\n");
 
-        // ==================== 步骤3：执行场景 ====================
-        System.out.println("=== 执行场景：电影之夜 ===");
-        user.runScene("电影之夜");
+        // ==================== Step 3: Execute the scenario ====================
+        System.out.println("=== Execution Scenario: Movie Night ===");
+        user.runScene("Movie Night");
 
-        // 查看设备状态
-        System.out.println("\n=== 场景执行后的设备状态 ===");
+        // Check device status
+        System.out.println("\n=== Device status after scene execution ===");
         user.viewDeviceState("ALL");
 
-        System.out.println("\n场景演示完成！");
+        System.out.println("\nScene demonstration complete!");
     }
 }

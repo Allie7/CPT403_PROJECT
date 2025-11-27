@@ -56,7 +56,7 @@ public class User {
     }
 
     /**
-     * 查看所有设备组
+     * View All Device Groups
      */
     public void viewAllGroups() {
         hub.viewAllGroups();
@@ -449,7 +449,7 @@ public class User {
      *
      * @param name Scene names
      * @param device_states config map of the devices and target states
-     * @return 创建的场景对象
+     * @return Created scene objects
      */
     public Scene createScene(String name, Map<String, String> device_states) {
         // create scenes through the config map

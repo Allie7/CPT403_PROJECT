@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 智能门锁类 - SmartDevice的具体实现
- * 继承自抽象类SmartDevice，提供门锁特定的功能
+ * Smart Door Lock Category - Specific Implementation of SmartDevice
+ * Inherits from the abstract class SmartDevice, providing door lock-specific functionality
  *
  */
 public class SmartLock extends SmartDevice {
@@ -13,10 +13,10 @@ public class SmartLock extends SmartDevice {
     private static ArrayList<String> legal_states = new ArrayList<>(List.of("locked","unlocked"));
 
     /**
-     * 构造方法
-     * 默认状态为锁定
+     * Constructor
+     * Default state is locked
      *
-     * @param name 门锁设备名称
+     * @param name Door Lock Equipment Name
      */
     public SmartLock(String name) {
         super(name, "Lock");
@@ -25,10 +25,10 @@ public class SmartLock extends SmartDevice {
     }
 
     /**
-     * 设置门锁状态
+     * Set Door Lock State
      *
-     * @param state 要设置的状态（locked/unlocked/on/off）
-     * @throws IllegalArgumentException 如果状态不合法
+     * @param state The state to set (locked/unlocked/on/off)
+     * @throws IllegalArgumentException If the state is invalid
      */
     @Override
     public void setState(String state) {
@@ -38,39 +38,39 @@ public class SmartLock extends SmartDevice {
 
         String lowerState = state.toLowerCase();
 
-        // 支持多种状态表示方式
+        // Supports multiple state representations
         if (lowerState.equals("on")) {
             lowerState = "unlocked";
         } else if (lowerState.equals("off")) {
             lowerState = "locked";
         }
 
-        // 验证状态是否合法
+        // Verify whether the status is valid
         if (!legal_states.contains(lowerState)) {
             throw new IllegalArgumentException("Invalid state for SmartLock: " + state + ". Must be 'locked', 'unlocked', 'on', or 'off'");
         }
 
-        // 更新状态和isLocked标志
+        // Update status and isLocked flag
         super.setState(lowerState);
         this.isLocked = lowerState.equals("locked");
     }
 
     /**
-     * 锁定门锁
+     * Lock the door
      */
     public void lock() {
         setState("locked");
     }
 
     /**
-     * 解锁门锁
+     * Unlock the door lock
      */
     public void unlock() {
         setState("unlocked");
     }
 
     /**
-     * 打开（解锁）门锁
+     * Unlock the door
      */
     @Override
     public void turnOn() {
@@ -78,7 +78,7 @@ public class SmartLock extends SmartDevice {
     }
 
     /**
-     * 关闭（锁定）门锁
+     * Lock the door
      */
     @Override
     public void turnOff() {
@@ -86,9 +86,9 @@ public class SmartLock extends SmartDevice {
     }
 
     /**
-     * 检查门锁是否处于锁定状态
+     * Check if the door lock is in the locked state
      *
-     * @return 如果门锁已锁定返回true，否则返回false
+     * @return Returns true if the door lock is locked, false otherwise
      */
     public boolean isLocked() {
         return this.isLocked;
