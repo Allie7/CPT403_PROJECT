@@ -294,18 +294,18 @@ public class User {
      * @param deviceName the name of the device
      * @param group the name of the group
      */
-    public void addMemberToGroup(String deviceName,String group_name) {
-        hub.addDeviceToGroup(deviceName, group_name);
+    public void addMemberToGroup(String deviceName,String groupName) {
+        hub.addDeviceToGroup(deviceName, groupName);
     }
 
     /**
      * add a device to a group in hub through device name
      *
      * @param device the device
-     * @param group_name the name of the group
+     * @param groupName the name of the group
      */
-    public void addMemberToGroup(SmartDevice device,String group_name) {
-        hub.addDeviceToGroup(device, group_name);
+    public void addMemberToGroup(SmartDevice device,String groupName) {
+        hub.addDeviceToGroup(device, groupName);
     }
 
 
@@ -324,20 +324,20 @@ public class User {
      * remove a device to a group in hub through names
      *
      * @param deviceName the name of the device
-     * @param group_name the name of the group
+     * @param groupName the name of the group
      */
-    public void removeMemberFromGroup(String deviceName,String group_name) {
-        hub.removeDeviceFromGroup(deviceName, group_name);
+    public void removeMemberFromGroup(String deviceName,String groupName) {
+        hub.removeDeviceFromGroup(deviceName, groupName);
     }
 
     /**
      * remove a device to a group in hub through device name
      *
      * @param device the device
-     * @param group_name the name of the group
+     * @param groupName the name of the group
      */
-    public void removeMemberFromGroup(SmartDevice device,String group_name) {
-        hub.removeDeviceFromGroup(device, group_name);
+    public void removeMemberFromGroup(SmartDevice device,String groupName) {
+        hub.removeDeviceFromGroup(device, groupName);
     }
 
 
@@ -357,10 +357,10 @@ public class User {
     /**
      * input a name of the group to ask the hub to delete it
      *
-     * @param group_name device group name
+     * @param groupName device group name
      */
-    public void removeGroupFromHub(String group_name) {
-        hub.removeGroup(group_name);
+    public void removeGroupFromHub(String groupName) {
+        hub.removeGroup(groupName);
     }
 
     /**
@@ -409,37 +409,37 @@ public class User {
     /**
      * turn on all members of the device group
      *
-     * @param group_name group name
+     * @param groupName group name
      */
-    public void turnOnGroup(String group_name) {
-        hub.manageGroup(group_name, "on");
+    public void turnOnGroup(String groupName) {
+        hub.manageGroup(groupName, "on");
     }
 
     /**
      * turn off all members of the device group
      *
-     * @param group_name group name
+     * @param groupName group name
      */
-    public void turnOffGroup(String group_name) {
-        hub.manageGroup(group_name, "off");
+    public void turnOffGroup(String groupName) {
+        hub.manageGroup(groupName, "off");
     }
 
     /**
      * lock all members of the device group
      *
-     * @param group_name group name
+     * @param groupName group name
      */
-    public void lockGroup(String group_name) {
-        hub.manageGroup(group_name, "locked");
+    public void lockGroup(String groupName) {
+        hub.manageGroup(groupName, "locked");
     }
 
     /**
      * unlock  all members of the device group
      *
-     * @param group_name group name
+     * @param groupName group name
      */
-    public void unlockGroup(String group_name) {
-        hub.manageGroup(group_name, "unlocked");
+    public void unlockGroup(String groupName) {
+        hub.manageGroup(groupName, "unlocked");
     }
 
     // ==================== Managing Scenes ====================
