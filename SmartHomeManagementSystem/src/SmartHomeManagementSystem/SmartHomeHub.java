@@ -146,35 +146,35 @@ public class SmartHomeHub {
      * Group devices that already exists and add the group to the group list
      *
      * @param name name of the group
-     * @param device_names  name of the devices
+     * @param deviceNames  name of the devices
      * @throws IllegalArgumentException when group name exists and device names list are empty or when the device name
      * listed is not in the hub
      **/
-    protected void groupDevices(String name, ArrayList<String> device_names) {
+    protected void groupDevices(String name, ArrayList<String> deviceNames) {
         if (findGroupByName(name)  != null) {
             throw new IllegalArgumentException("Group name exists");
         }
-        ArrayList<SmartDevice> devices_group = new ArrayList<SmartDevice>();
-        if (device_names == null ) {
+        ArrayList<SmartDevice> devicesGroup = new ArrayList<SmartDevice>();
+        if (deviceNames == null ) {
             throw new IllegalArgumentException("Device list cannot be null or empty");
         }
-        for (String device_name : device_names) {
-            SmartDevice device = findDeviceByName(device_name);
+        for (String deviceName : deviceNames) {
+            SmartDevice device = findDeviceByName(deviceName);
             if (device != null) {
                 devices.add(device);
-                devices_group.add(device);
+                devicesGroup.add(device);
             }else  {
-                throw new IllegalArgumentException("Device name " + device_name + " not found");
+                throw new IllegalArgumentException("Device name " + deviceName + " not found");
             }
 
         }
-        DeviceGroup group = new DeviceGroup(name, devices_group);
+        DeviceGroup group = new DeviceGroup(name, devicesGroup);
         groups.add(group);
     }
 
-    public void addDeviceToGroup(String device_name, String group_name) {
-        DeviceGroup group = findGroupByName(group_name);
-        SmartDevice device = findDeviceByName(device_name);
+    public void addDeviceToGroup(String deviceName, String groupName) {
+        DeviceGroup group = findGroupByName(groupName);
+        SmartDevice device = findDeviceByName(deviceName);
         if (device != null && group != null) {
             group.addDevice(device);
         }
@@ -183,8 +183,8 @@ public class SmartHomeHub {
         }
     }
 
-    public void addDeviceToGroup(SmartDevice device, String group_name) {
-        DeviceGroup group = findGroupByName(group_name);
+    public void addDeviceToGroup(SmartDevice device, String groupName) {
+        DeviceGroup group = findGroupByName(groupName);
         if (group == null) {
             throw new IllegalArgumentException("group not found");
         }else if (device != null && devices.contains(device)) {
@@ -204,8 +204,8 @@ public class SmartHomeHub {
         }
     }
 
-    public void addDeviceToGroup(String device_name, DeviceGroup group) {
-        SmartDevice device = findDeviceByName(device_name);
+    public void addDeviceToGroup(String deviceName, DeviceGroup group) {
+        SmartDevice device = findDeviceByName(deviceName);
         if (device != null) {
             throw new IllegalArgumentException("device not added");
         }
@@ -217,9 +217,9 @@ public class SmartHomeHub {
     }
 
 
-    public void removeDeviceFromGroup(String device_name, String group_name) {
-        DeviceGroup group = findGroupByName(group_name);
-        SmartDevice device = findDeviceByName(device_name);
+    public void removeDeviceFromGroup(String deviceName, String groupName) {
+        DeviceGroup group = findGroupByName(groupName);
+        SmartDevice device = findDeviceByName(deviceName);
         if (device != null && group != null) {
             group.removeDevice(device);
         }
@@ -228,8 +228,8 @@ public class SmartHomeHub {
         }
     }
 
-    public void removeDeviceFromGroup(SmartDevice device, String group_name) {
-        DeviceGroup group = findGroupByName(group_name);
+    public void removeDeviceFromGroup(SmartDevice device, String groupName) {
+        DeviceGroup group = findGroupByName(groupName);
         if (group != null) {
             group.removeDevice(device);
         } else if (group == null)  {
@@ -238,11 +238,11 @@ public class SmartHomeHub {
             throw new IllegalArgumentException("device not legal");
         }
     }
-    public void removeDeviceFromGroup(String device_name, DeviceGroup group) {
+    public void removeDeviceFromGroup(String deviceName, DeviceGroup group) {
         if (!groups.contains(group) | group == null) {
             throw new IllegalArgumentException("group not added");
         }
-        SmartDevice device = findDeviceByName(device_name);
+        SmartDevice device = findDeviceByName(deviceName);
         if (device == null) {
             throw new IllegalArgumentException("device not found");
         } else {
@@ -263,10 +263,10 @@ public class SmartHomeHub {
     /**
      * Remove a device group by name
      *
-     * @param group_name The name of the device group
+     * @param groupName The name of the device group
      */
-    protected void removeGroup(String group_name) {
-        DeviceGroup group = getGroupByName(group_name);
+    protected void removeGroup(String groupName) {
+        DeviceGroup group = getGroupByName(groupName);
         if (group != null) {
             groups.remove(group);
         }

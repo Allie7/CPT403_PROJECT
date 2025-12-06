@@ -11,7 +11,7 @@ import java.util.List;
 public class SmartLight extends SmartDevice {
     // Luminance Range Constant
     private static final int minBrightness = 0;
-    private static final int MAX_BRIGHTNESS = 100;
+    private static final int maxBrightness = 100;
 
     private int brightness; // Brightness 0-100
     private static ArrayList<String> legalStates = new ArrayList<>(List.of("on","off"));
@@ -68,10 +68,10 @@ public class SmartLight extends SmartDevice {
      * @throws IllegalArgumentException If the brightness value is not within the valid range
      */
     public void setBrightness(int brightness) {
-        if (brightness < minBrightness || brightness > MAX_BRIGHTNESS) {
+        if (brightness < minBrightness || brightness > maxBrightness) {
             throw new IllegalArgumentException(
                     String.format("Invalid brightness: %d. Must be between %d and %d",
-                            brightness, minBrightness, MAX_BRIGHTNESS)
+                            brightness, minBrightness, maxBrightness)
             );
         }
         this.brightness = brightness;

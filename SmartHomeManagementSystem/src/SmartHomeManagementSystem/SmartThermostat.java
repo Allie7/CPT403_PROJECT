@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class SmartThermostat extends SmartDevice {
     // Temperature Range Constant (°C)
-    private static final double MIN_TEMPERATURE = 0.0;
+    private static final double minTemperature = 0.0;
     private static final double maxTemperature = 40.0;
 
     private double temperature;
@@ -68,10 +68,10 @@ public class SmartThermostat extends SmartDevice {
      * @throws IllegalArgumentException If the temperature value is outside the valid range
      */
     public void setTemperature(double temperature) {
-        if (temperature < MIN_TEMPERATURE || temperature > maxTemperature) {
+        if (temperature < minTemperature || temperature > maxTemperature) {
             throw new IllegalArgumentException(
                     String.format("Invalid temperature: %.1f°C. Must be between %.1f°C and %.1f°C",
-                            temperature, MIN_TEMPERATURE, maxTemperature)
+                            temperature, minTemperature, maxTemperature)
             );
         }
         this.temperature = temperature;
