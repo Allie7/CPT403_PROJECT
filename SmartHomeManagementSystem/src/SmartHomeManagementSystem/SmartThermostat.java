@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 智能温控器类 - SmartDevice的具体实现
- * 继承自抽象类SmartDevice，提供温度控制功能
+ * Smart Thermostat Category - Specific Implementation of SmartDevice
+ * Inherits from the abstract class SmartDevice, providing temperature control functionality
  *
  */
 public class SmartThermostat extends SmartDevice {
-    // 温度范围常量（摄氏度）
+    // Temperature Range Constant (°C)
     private static final double MIN_TEMPERATURE = 0.0;
     private static final double MAX_TEMPERATURE = 40.0;
 
@@ -17,20 +17,20 @@ public class SmartThermostat extends SmartDevice {
     private static ArrayList<String> legal_states = new ArrayList<>(List.of("on","off"));
 
     /**
-     * 构造方法
+     * Constructor
      *
-     * @param name 温控器设备名称
+     * @param name Thermostat device name
      */
     public SmartThermostat(String name) {
         super(name, "Thermostat");
-        this.temperature = 22.0; // 默认温度22°C
+        this.temperature = 22.0; // Default temperature: 22°C
     }
 
     /**
-     * 设置温控器状态
+     * Set thermostat state
      *
-     * @param state 要设置的状态（on/off）
-     * @throws IllegalArgumentException 如果状态不合法
+     * @param state State to set (on/off)
+     * @throws IllegalArgumentException If state is invalid
      */
     @Override
     public void setState(String state) {
@@ -45,7 +45,7 @@ public class SmartThermostat extends SmartDevice {
     }
 
     /**
-     * 打开温控器
+     * Turn on the thermostat
      */
     @Override
     public void turnOn() {
@@ -53,7 +53,7 @@ public class SmartThermostat extends SmartDevice {
     }
 
     /**
-     * 关闭温控器
+     * Turn off the thermostat
      */
     @Override
     public void turnOff() {
@@ -61,11 +61,11 @@ public class SmartThermostat extends SmartDevice {
     }
 
     /**
-     * 设置目标温度
-     * 注意：设置温度会自动打开温控器
+     * Set Target Temperature
+     * Note: Setting the temperature will automatically activate the thermostat
      *
-     * @param temperature 目标温度（0°C - 40°C之间）
-     * @throws IllegalArgumentException 如果温度值不在有效范围内
+     * @param temperature Target temperature (between 0°C and 40°C)
+     * @throws IllegalArgumentException If the temperature value is outside the valid range
      */
     public void setTemperature(double temperature) {
         if (temperature < MIN_TEMPERATURE || temperature > MAX_TEMPERATURE) {
@@ -78,19 +78,19 @@ public class SmartThermostat extends SmartDevice {
     }
 
     /**
-     * 获取当前目标温度
+     * Get the current target temperature
      *
-     * @return 当前目标温度（摄氏度）
+     * @return The current target temperature (in degrees Celsius)
      */
     public double getTemperature() {
         return this.temperature;
     }
 
     /**
-     * 返回温控器设备的字符串表示
-     * 包含名称、类型、状态和温度信息
+     * Return a string representation of the thermostat device
+     * Contains name, type, status, and temperature information
      *
-     * @return 格式化的设备信息字符串
+     * @return Formatted device information string
      */
     @Override
     public String toString() {

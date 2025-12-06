@@ -1,3 +1,0 @@
-# CPT403_PROJECT
-CPT403_PROJECT
-testesttest
