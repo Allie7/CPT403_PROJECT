@@ -65,10 +65,10 @@ public class User {
     /**
      * view a particular device or a particular devices of a particular group's state
      * by calling the group/device's name
-     * @param device_name the device name, or "all"
+     * @param deviceName the device name, or "all"
      */
-    public void viewDeviceState(String device_name) {
-        hub.viewDeviceState(device_name);
+    public void viewDeviceState(String deviceName) {
+        hub.viewDeviceState(deviceName);
     }
 
     /**
@@ -127,37 +127,37 @@ public class User {
     /**
      * turn on the device through the name
      *
-     * @param device_name device name
+     * @param deviceName device name
      */
-    public void turnOnDevice(String device_name) {
-        hub.controlDevice(device_name, "on");
+    public void turnOnDevice(String deviceName) {
+        hub.controlDevice(deviceName, "on");
     }
 
     /**
      * turn off the device through the name
      *
-     * @param device_name device name
+     * @param deviceName device name
      */
-    public void turnOffDevice(String device_name) {
-        hub.controlDevice(device_name, "off");
+    public void turnOffDevice(String deviceName) {
+        hub.controlDevice(deviceName, "off");
     }
 
     /**
      * lock the device through the name
      *
-     * @param device_name device name
+     * @param deviceName device name
      */
-    public void lockDevice(String device_name) {
-        hub.controlDevice(device_name, "locked");
+    public void lockDevice(String deviceName) {
+        hub.controlDevice(deviceName, "locked");
     }
 
     /**
      * unlock the device through the name
      *
-     * @param device_name device name
+     * @param deviceName device name
      */
-    public void unlockDevice(String device_name) {
-        hub.controlDevice(device_name, "unlocked");
+    public void unlockDevice(String deviceName) {
+        hub.controlDevice(deviceName, "unlocked");
     }
 
     // ==================== direct controls（not through Hub） ====================
@@ -214,10 +214,10 @@ public class User {
      * add an empty device (only a name ) to the hub. Often useful to the engineers when developing and debugging
      * not really useful for the user, actually.
      *
-     * @param device_name the name of the device
+     * @param deviceName the name of the device
      */
-    public void addDeviceToHub(String device_name) {
-        hub.addDevice(device_name);
+    public void addDeviceToHub(String deviceName) {
+        hub.addDevice(deviceName);
     }
 
     /**
@@ -232,10 +232,10 @@ public class User {
     /**
      * remove a device from a hub through its name
      *
-     * @param device_name the device's name
+     * @param deviceName the device's name
      */
-    public void removeDeviceFromHub(String device_name) {
-        hub.removeDevice(device_name);
+    public void removeDeviceFromHub(String deviceName) {
+        hub.removeDevice(deviceName);
     }
 
     /**
@@ -280,22 +280,22 @@ public class User {
      * the hub to create a device group
      *
      * @param name group name
-     * @param device_names list of device_names
+     * @param deviceNames list of deviceNames
      */
-    public void groupDevicesInHub(String name, ArrayList<String> device_names) {
+    public void groupDevicesInHub(String name, ArrayList<String> deviceNames) {
 
-        hub.groupDevices(name, device_names);
+        hub.groupDevices(name, deviceNames);
     }
 
 
     /**
      * add a device to a group in hub through names
      *
-     * @param device_name the name of the device
+     * @param deviceName the name of the device
      * @param group the name of the group
      */
-    public void addMemberToGroup(String device_name,String group_name) {
-        hub.addDeviceToGroup(device_name, group_name);
+    public void addMemberToGroup(String deviceName,String group_name) {
+        hub.addDeviceToGroup(deviceName, group_name);
     }
 
     /**
@@ -323,11 +323,11 @@ public class User {
     /**
      * remove a device to a group in hub through names
      *
-     * @param device_name the name of the device
+     * @param deviceName the name of the device
      * @param group_name the name of the group
      */
-    public void removeMemberFromGroup(String device_name,String group_name) {
-        hub.removeDeviceFromGroup(device_name, group_name);
+    public void removeMemberFromGroup(String deviceName,String group_name) {
+        hub.removeDeviceFromGroup(deviceName, group_name);
     }
 
     /**
