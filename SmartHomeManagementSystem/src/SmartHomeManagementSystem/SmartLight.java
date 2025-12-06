@@ -10,11 +10,11 @@ import java.util.List;
  */
 public class SmartLight extends SmartDevice {
     // Luminance Range Constant
-    private static final int MIN_BRIGHTNESS = 0;
+    private static final int minBrightness = 0;
     private static final int MAX_BRIGHTNESS = 100;
 
     private int brightness; // Brightness 0-100
-    private static ArrayList<String> legal_states = new ArrayList<>(List.of("on","off"));
+    private static ArrayList<String> legalStates = new ArrayList<>(List.of("on","off"));
 
     /**
      * Constructor
@@ -38,7 +38,7 @@ public class SmartLight extends SmartDevice {
             throw new IllegalArgumentException("State cannot be null");
         }
         String lowerState = state.toLowerCase();
-        if (!legal_states.contains(lowerState)) {
+        if (!legalStates.contains(lowerState)) {
             throw new IllegalArgumentException("Invalid state for SmartLight: " + state + ". Must be 'on' or 'off'");
         }
         super.setState(lowerState);
@@ -68,10 +68,10 @@ public class SmartLight extends SmartDevice {
      * @throws IllegalArgumentException If the brightness value is not within the valid range
      */
     public void setBrightness(int brightness) {
-        if (brightness < MIN_BRIGHTNESS || brightness > MAX_BRIGHTNESS) {
+        if (brightness < minBrightness || brightness > MAX_BRIGHTNESS) {
             throw new IllegalArgumentException(
                     String.format("Invalid brightness: %d. Must be between %d and %d",
-                            brightness, MIN_BRIGHTNESS, MAX_BRIGHTNESS)
+                            brightness, minBrightness, MAX_BRIGHTNESS)
             );
         }
         this.brightness = brightness;

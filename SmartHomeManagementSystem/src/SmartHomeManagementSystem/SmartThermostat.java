@@ -11,10 +11,10 @@ import java.util.List;
 public class SmartThermostat extends SmartDevice {
     // Temperature Range Constant (°C)
     private static final double MIN_TEMPERATURE = 0.0;
-    private static final double MAX_TEMPERATURE = 40.0;
+    private static final double maxTemperature = 40.0;
 
     private double temperature;
-    private static ArrayList<String> legal_states = new ArrayList<>(List.of("on","off"));
+    private static ArrayList<String> legalStates = new ArrayList<>(List.of("on","off"));
 
     /**
      * Constructor
@@ -38,7 +38,7 @@ public class SmartThermostat extends SmartDevice {
             throw new IllegalArgumentException("State cannot be null");
         }
         String lowerState = state.toLowerCase();
-        if (!legal_states.contains(lowerState)) {
+        if (!legalStates.contains(lowerState)) {
             throw new IllegalArgumentException("Invalid state for SmartThermostat: " + state + ". Must be 'on' or 'off'");
         }
         super.setState(lowerState);
@@ -68,10 +68,10 @@ public class SmartThermostat extends SmartDevice {
      * @throws IllegalArgumentException If the temperature value is outside the valid range
      */
     public void setTemperature(double temperature) {
-        if (temperature < MIN_TEMPERATURE || temperature > MAX_TEMPERATURE) {
+        if (temperature < MIN_TEMPERATURE || temperature > maxTemperature) {
             throw new IllegalArgumentException(
                     String.format("Invalid temperature: %.1f°C. Must be between %.1f°C and %.1f°C",
-                            temperature, MIN_TEMPERATURE, MAX_TEMPERATURE)
+                            temperature, MIN_TEMPERATURE, maxTemperature)
             );
         }
         this.temperature = temperature;
