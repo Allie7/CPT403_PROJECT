@@ -6,16 +6,26 @@ import java.util.List;
 /**
  * Smart Device Abstract Base Class
  * All concrete smart device types (such as lights, thermostats, etc.) should inherit from this class.
- *
  */
 public abstract class SmartDevice {
     // Private Properties - Modified the access modifier from protected to private to comply with the encapsulation principle.
     private String name;
     private String type;
-    private String state;
+    private DeviceState state;
+
+    /**
+     * Device state enumeration to restrict valid states.
+     * Currently supports ON/OFF for generic devices and LOCKED/UNLOCKED for locks.
+     */
+    public enum DeviceState {
+        ON,
+        OFF,
+        LOCKED,
+        UNLOCKED
+    }
 
     // List of Valid States (Subclasses may override)
-    public static String[] legalStates = {"on","off"};
+    public static String[] legalStates = {"on", "off"};
 
     /**
      * Constructor
@@ -32,7 +42,7 @@ public abstract class SmartDevice {
         }
         this.name = name;
         this.type = type;
-        this.state = "off"; // The default state is off.
+        this.state = DeviceState.OFF; // The default state is off.
     }
 
     /**
@@ -56,25 +66,42 @@ public abstract class SmartDevice {
     /**
      * Get the device's current status
      *
-     * @return Device status
+     * @return Device status (e.g. "on", "off", "locked", "unlocked")
      */
     public String getState() {
-        return this.state;
+        return this.state == null ? null : this.state.name().toLowerCase();
     }
 
     /**
      * Set Device State
-     * Note: This method validates the state's legitimacy
+     * Note: This method converts the incoming String state into an enum value.
      *
-     * @param state The state to set
+     * @param state The state to set (on/off/locked/unlocked)
      * @throws IllegalArgumentException If the state is invalid
      */
     public void setState(String state) {
         if (state == null) {
             throw new IllegalArgumentException("State cannot be null");
         }
-        // State validation is implemented by subclasses (since each device has distinct valid states).
-        this.state = state.toLowerCase();
+        String lowerState = state.toLowerCase();
+
+        // Convert the incoming string state into an enum value to ensure type safety.
+        switch (lowerState) {
+            case "on":
+                this.state = DeviceState.ON;
+                break;
+            case "off":
+                this.state = DeviceState.OFF;
+                break;
+            case "locked":
+                this.state = DeviceState.LOCKED;
+                break;
+            case "unlocked":
+                this.state = DeviceState.UNLOCKED;
+                break;
+            default:
+                throw new IllegalArgumentException("Unsupported device state: " + state);
+        }
     }
 
     /**
@@ -93,7 +120,7 @@ public abstract class SmartDevice {
      * @return If the device status is “on”, return true; otherwise, return false.
      */
     public boolean isOn() {
-        return "on".equalsIgnoreCase(state);
+        return this.state == DeviceState.ON;
     }
 
     /**
@@ -115,7 +142,7 @@ public abstract class SmartDevice {
     @Override
     public String toString() {
         return String.format("SmartDevice{name='%s', type='%s', state='%s'}",
-                this.name, this.type, this.state);
+                this.name, this.type, this.getState());
     }
 
     /**
