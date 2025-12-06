@@ -448,12 +448,12 @@ public class User {
      * create scenes
      *
      * @param name Scene names
-     * @param device_states config map of the devices and target states
+     * @param deviceStates config map of the devices and target states
      * @return Created scene objects
      */
-    public Scene createScene(String name, Map<String, String> device_states) {
+    public Scene createScene(String name, Map<String, String> deviceStates) {
         // create scenes through the config map
-        Scene newScene = new Scene(name, device_states);
+        Scene newScene = new Scene(name, deviceStates);
 
         // add scene to hub
         hub.addScene(newScene);
@@ -466,17 +466,17 @@ public class User {
      * updating the scene devices and states
      *
      * @param name scene name
-     * @param device_states config map of devices and target states
+     * @param deviceStates config map of devices and target states
      */
-    public void modifyScene(String name, Map<String, String> device_states) {
+    public void modifyScene(String name, Map<String, String> deviceStates) {
         Scene scene = hub.getSceneByName(name);
         if (scene != null) {
             // clear all the scene settings
             scene.clearDeviceStates();
 
             // add new settings
-            if (device_states != null) {
-                for (Map.Entry<String, String> entry : device_states.entrySet()) {
+            if (deviceStates != null) {
+                for (Map.Entry<String, String> entry : deviceStates.entrySet()) {
                     scene.addDeviceState(entry.getKey(), entry.getValue());
                 }
             }

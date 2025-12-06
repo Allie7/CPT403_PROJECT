@@ -23,9 +23,9 @@ public class Scene {
      * Create a scene via device state mapping
      *
      * @param name scene name
-     * @param device_states mapping from device names to target states
+     * @param deviceStates mapping from device names to target states
      */
-    public Scene(String name, Map<String, String> device_states) {
+    public Scene(String name, Map<String, String> deviceStates) {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Scene name cannot be null or empty");
         }
@@ -34,8 +34,8 @@ public class Scene {
         this.state = "inactive"; // The default scene state is inactive.
 
         // Storage Device Status Configuration (Deep Copy for Data Protection)
-        if (device_states != null) {
-            this.deviceStates = new HashMap<>(device_states);
+        if (deviceStates != null) {
+            this.deviceStates = new HashMap<>(deviceStates);
         } else {
             this.deviceStates = new HashMap<>();
         }

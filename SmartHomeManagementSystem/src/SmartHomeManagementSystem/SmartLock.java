@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class SmartLock extends SmartDevice {
     private boolean isLocked;
-    private static ArrayList<String> legal_states = new ArrayList<>(List.of("locked","unlocked"));
+    private static ArrayList<String> legalStates = new ArrayList<>(List.of("locked","unlocked"));
 
     /**
      * Constructor
@@ -46,7 +46,7 @@ public class SmartLock extends SmartDevice {
         }
 
         // Verify whether the status is valid
-        if (!legal_states.contains(lowerState)) {
+        if (!legalStates.contains(lowerState)) {
             throw new IllegalArgumentException("Invalid state for SmartLock: " + state + ". Must be 'locked', 'unlocked', 'on', or 'off'");
         }
 
