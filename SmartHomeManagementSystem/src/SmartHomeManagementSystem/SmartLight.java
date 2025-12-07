@@ -33,15 +33,15 @@ public class SmartLight extends SmartDevice {
      * @throws IllegalArgumentException If the state is invalid
      */
     @Override
-    public void setState(String state) {
+    public void setState(DeviceState state) {
         if (state == null) {
             throw new IllegalArgumentException("State cannot be null");
         }
-        String lowerState = state.toLowerCase();
-        if (!legalStates.contains(lowerState)) {
-            throw new IllegalArgumentException("Invalid state for SmartLight: " + state + ". Must be 'on' or 'off'");
-        }
-        super.setState(lowerState);
+        //String lowerState = state.toLowerCase();
+        //if (!legalStates.contains(lowerState)) {
+        //    throw new IllegalArgumentException("Invalid state for SmartLight: " + state + ". Must be 'on' or 'off'");
+        //}
+        super.setState(state);
     }
 
     /**
@@ -49,7 +49,7 @@ public class SmartLight extends SmartDevice {
      */
     @Override
     public void turnOn() {
-        setState("on");
+        setState(DeviceState.ON);
     }
 
     /**
@@ -57,7 +57,7 @@ public class SmartLight extends SmartDevice {
      */
     @Override
     public void turnOff() {
-        setState("off");
+        setState(DeviceState.OFF);
     }
 
     /**
