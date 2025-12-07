@@ -1,7 +1,6 @@
 package SmartHomeManagementSystem;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -11,7 +10,7 @@ import java.util.Map;
  *
  */
 public class User {
-    private String username;
+    private final String username;
     private SmartHomeHub hub;
 
     /**
@@ -85,41 +84,32 @@ public class User {
      *
      * @param group the group to see
      */
-    public void viewDeviceState(DeviceGroup group) {
+    public void viewGroupState(DeviceGroup group) {
         hub.viewDeviceState(group.getName());
     }
 
     // ==================== control methods through hub） ====================
 
-    /**
-     * control a particular device through the hub by calling its name
-     *
-     * @param name the device's name
-     * @param state the target state
-     */
-    public void controlDevices(String name, String state) {
-        hub.controlDevice(name, state);
-    }
 
     /**
      * control(through the hub) a particular lighting device, turn it on and set it to desired
      * brightness by calling its name.
      *
      * @param name device name
-     * @param num brightness（0-100）
+     * @param brightness brightness（0-100）
      */
-    public void controlDevices(String name, int num) {
-        hub.controlDevice(name, num);
+    public void controlBrightness(String name, int brightness) {
+        hub.controlBrightness(name, brightness);
     }
 
     /**
      * control(through the hub) a particular thermostat device, turn it on and set it to desired
      * temperature by calling its name.
      * @param name device name
-     * @param num desired temperature
+     * @param temperature desired temperature
      */
-    public void controlDevices(String name, double num) {
-        hub.controlDevice(name, num);
+    public void controlTemperature(String name, double temperature) {
+        hub.controlTemperature(name, temperature);
     }
 
     // ==================== control shortcuts（through the Hub） ====================
@@ -130,7 +120,7 @@ public class User {
      * @param deviceName device name
      */
     public void turnOnDevice(String deviceName) {
-        hub.controlDevice(deviceName, "on");
+        hub.controlDevice(deviceName, DeviceState.ON);
     }
 
     /**
@@ -139,7 +129,7 @@ public class User {
      * @param deviceName device name
      */
     public void turnOffDevice(String deviceName) {
-        hub.controlDevice(deviceName, "off");
+        hub.controlDevice(deviceName, DeviceState.OFF);
     }
 
     /**
@@ -148,7 +138,7 @@ public class User {
      * @param deviceName device name
      */
     public void lockDevice(String deviceName) {
-        hub.controlDevice(deviceName, "locked");
+        hub.controlDevice(deviceName, DeviceState.LOCKED);
     }
 
     /**
@@ -157,55 +147,7 @@ public class User {
      * @param deviceName device name
      */
     public void unlockDevice(String deviceName) {
-        hub.controlDevice(deviceName, "unlocked");
-    }
-
-    // ==================== direct controls（not through Hub） ====================
-
-    /**
-     * turn on the device directly (not through the hub)
-     *
-     * @param device the device object
-     */
-    public void turnOnDevice(SmartDevice device) {
-        device.turnOn();
-    }
-
-    /**
-     * turn off the device directly (not through the hub)
-     *
-     * @param device the device object
-     */
-    public void turnOffDevice(SmartDevice device) {
-        device.turnOff();
-    }
-
-    /**
-     *  lock the device directly (not through the hub)
-     *
-     * @param device the device object
-     * @throws IllegalArgumentException if the device is not SmartLock
-     */
-    public void lockDevice(SmartDevice device) {
-        if (device instanceof SmartLock) {
-            ((SmartLock) device).lock();
-        } else {
-            throw new IllegalArgumentException(device.getName() + " is not a SmartLock");
-        }
-    }
-
-    /**
-     *  unlock the device directly (not through the hub)
-     *
-     * @param device the device object
-     * @throws IllegalArgumentException if the device is not a SmartLock
-     */
-    public void unlockDevice(SmartDevice device) {
-        if (device instanceof SmartLock) {
-            ((SmartLock) device).unlock();
-        } else {
-            throw new IllegalArgumentException(device.getName() + " is not a SmartLock");
-        }
+        hub.controlDevice(deviceName, DeviceState.UNLOCKED);
     }
 
     // ==================== Managing the Hub ====================
@@ -264,7 +206,7 @@ public class User {
             throw new IllegalArgumentException("Device list cannot be null or empty");
         }
 
-        String checkType = devices.get(0).getType();
+        String checkType = devices.getFirst().getType();
         for (SmartDevice device : devices) {
             if (!device.getType().equals(checkType)) {
                 throw new IllegalArgumentException("All devices in a group must have the same type");
@@ -292,21 +234,12 @@ public class User {
      * add a device to a group in hub through names
      *
      * @param deviceName the name of the device
-     * @param group the name of the group
+     * @param groupName the name of the group
      */
     public void addMemberToGroup(String deviceName,String groupName) {
         hub.addDeviceToGroup(deviceName, groupName);
     }
 
-    /**
-     * add a device to a group in hub through device name
-     *
-     * @param device the device
-     * @param groupName the name of the group
-     */
-    public void addMemberToGroup(SmartDevice device,String groupName) {
-        hub.addDeviceToGroup(device, groupName);
-    }
 
 
     /**
@@ -330,15 +263,7 @@ public class User {
         hub.removeDeviceFromGroup(deviceName, groupName);
     }
 
-    /**
-     * remove a device to a group in hub through device name
-     *
-     * @param device the device
-     * @param groupName the name of the group
-     */
-    public void removeMemberFromGroup(SmartDevice device,String groupName) {
-        hub.removeDeviceFromGroup(device, groupName);
-    }
+
 
 
     /**
@@ -374,15 +299,6 @@ public class User {
 
     // ==================== Control Device Groups through the Hub ====================
 
-    /**
-     * set the group to desired state
-     *
-     * @param name name of the group
-     * @param state target state
-     */
-    public void manageGroup(String name, String state) {
-        hub.manageGroup(name, state);
-    }
 
     /**
      * set the group of smart light to desired brightness and turn them on.
@@ -390,8 +306,8 @@ public class User {
      * @param name group name
      * @param brightness target brightness(0-100)
      */
-    public void manageGroup(String name, int brightness) {
-        hub.manageGroup(name, brightness);
+    public void manageGroupBrightness(String name, int brightness) {
+        hub.manageGroupBrightness(name, brightness);
     }
 
     /**
@@ -400,8 +316,8 @@ public class User {
      * @param name name of the device
      * @param temperature target temperature
      */
-    public void manageGroup(String name, double temperature) {
-        hub.manageGroup(name, temperature);
+    public void manageGroupTemperature(String name, double temperature) {
+        hub.manageGroupTemperature(name, temperature);
     }
 
     // ==================== Device Group Control ShortCuts ====================
@@ -412,7 +328,7 @@ public class User {
      * @param groupName group name
      */
     public void turnOnGroup(String groupName) {
-        hub.manageGroup(groupName, "on");
+        hub.manageGroup(groupName,DeviceState.ON);
     }
 
     /**
@@ -421,7 +337,7 @@ public class User {
      * @param groupName group name
      */
     public void turnOffGroup(String groupName) {
-        hub.manageGroup(groupName, "off");
+        hub.manageGroup(groupName,DeviceState.OFF);
     }
 
     /**
@@ -430,7 +346,7 @@ public class User {
      * @param groupName group name
      */
     public void lockGroup(String groupName) {
-        hub.manageGroup(groupName, "locked");
+        hub.manageGroup(groupName, DeviceState.LOCKED);
     }
 
     /**
@@ -439,7 +355,7 @@ public class User {
      * @param groupName group name
      */
     public void unlockGroup(String groupName) {
-        hub.manageGroup(groupName, "unlocked");
+        hub.manageGroup(groupName, DeviceState.UNLOCKED);
     }
 
     // ==================== Managing Scenes ====================

@@ -19,9 +19,9 @@ public class SmartHomeHub {
     /**
      * Constructor (with parameters)
      *
-     * @param groups List of device groups
+     * @param groups  List of device groups
      * @param devices List of devices
-     * @param scenes List of scenes
+     * @param scenes  List of scenes
      */
     protected SmartHomeHub(List<DeviceGroup> groups, List<SmartDevice> devices, List<Scene> scenes) {
         this.groups = groups != null ? new ArrayList<>(groups) : new ArrayList<>();
@@ -107,6 +107,7 @@ public class SmartHomeHub {
         }
         return null;
     }
+
     /**
      * find group through name
      *
@@ -145,17 +146,17 @@ public class SmartHomeHub {
     /**
      * Group devices that already exists and add the group to the group list
      *
-     * @param name name of the group
-     * @param deviceNames  name of the devices
+     * @param name        name of the group
+     * @param deviceNames name of the devices
      * @throws IllegalArgumentException when group name exists and device names list are empty or when the device name
-     * listed is not in the hub
+     *                                  listed is not in the hub
      **/
     protected void groupDevices(String name, ArrayList<String> deviceNames) {
-        if (findGroupByName(name)  != null) {
+        if (findGroupByName(name) != null) {
             throw new IllegalArgumentException("Group name exists");
         }
         ArrayList<SmartDevice> devicesGroup = new ArrayList<SmartDevice>();
-        if (deviceNames == null ) {
+        if (deviceNames == null) {
             throw new IllegalArgumentException("Device list cannot be null or empty");
         }
         for (String deviceName : deviceNames) {
@@ -163,7 +164,7 @@ public class SmartHomeHub {
             if (device != null) {
                 devices.add(device);
                 devicesGroup.add(device);
-            }else  {
+            } else {
                 throw new IllegalArgumentException("Device name " + deviceName + " not found");
             }
 
@@ -177,8 +178,7 @@ public class SmartHomeHub {
         SmartDevice device = findDeviceByName(deviceName);
         if (device != null && group != null) {
             group.addDevice(device);
-        }
-        else  {
+        } else {
             throw new IllegalArgumentException("names not found");
         }
     }
@@ -187,10 +187,9 @@ public class SmartHomeHub {
         DeviceGroup group = findGroupByName(groupName);
         if (group == null) {
             throw new IllegalArgumentException("group not found");
-        }else if (device != null && devices.contains(device)) {
+        } else if (device != null && devices.contains(device)) {
             group.addDevice(device);
-        }
-        else if (device != null) {
+        } else if (device != null) {
             devices.add(device);
             group.addDevice(device);
         }
@@ -199,7 +198,7 @@ public class SmartHomeHub {
     public void addDeviceToGroup(SmartDevice device, DeviceGroup group) {
         if (devices.contains(device) && groups.contains(group)) {
             group.addDevice(device);
-        }else  {
+        } else {
             throw new IllegalArgumentException("device or group not added");
         }
     }
@@ -211,7 +210,7 @@ public class SmartHomeHub {
         }
         if (devices.contains(device) && groups.contains(group)) {
             group.addDevice(device);
-        }else  {
+        } else {
             throw new IllegalArgumentException("group not added");
         }
     }
@@ -222,8 +221,7 @@ public class SmartHomeHub {
         SmartDevice device = findDeviceByName(deviceName);
         if (device != null && group != null) {
             group.removeDevice(device);
-        }
-        else  {
+        } else {
             throw new IllegalArgumentException("names not found");
         }
     }
@@ -232,12 +230,13 @@ public class SmartHomeHub {
         DeviceGroup group = findGroupByName(groupName);
         if (group != null) {
             group.removeDevice(device);
-        } else if (group == null)  {
+        } else if (group == null) {
             throw new IllegalArgumentException("group not found");
         } else {
             throw new IllegalArgumentException("device not legal");
         }
     }
+
     public void removeDeviceFromGroup(String deviceName, DeviceGroup group) {
         if (!groups.contains(group) | group == null) {
             throw new IllegalArgumentException("group not added");
@@ -253,11 +252,10 @@ public class SmartHomeHub {
     public void removeDeviceFromGroup(SmartDevice device, DeviceGroup group) {
         if (devices.contains(device) && groups.contains(group)) {
             group.removeDevice(device);
-        } else   {
+        } else {
             throw new IllegalArgumentException("device or group not added");
         }
     }
-
 
 
     /**
@@ -326,13 +324,17 @@ public class SmartHomeHub {
         return null;
     }
 
-
+    //temp executeScene()
+    public void executeScene(String name) {
+        System.out.println("name = " + name);
+    }
     /**
      * Execute the scene with the specified name
      * Locate devices based on scene configuration and set them to the target state
      *
      * @param name scene name
      */
+    /**
     public void executeScene(String name) {
         Scene scene = getSceneByName(name);
         if (scene != null) {
@@ -390,6 +392,7 @@ public class SmartHomeHub {
             throw new IllegalArgumentException("Scene not found: " + name);
         }
     }
+    **/
 
     /**
      * Auxiliary Method: Determine if a string is numeric
@@ -467,8 +470,8 @@ public class SmartHomeHub {
      * @param state Target state
      * @throws IllegalArgumentException If the device does not exist
      */
-    protected void controlDevice(String name, String state) {
-        state = state.toLowerCase();
+    protected void controlDevice(String name,DeviceState state) {
+
         SmartDevice currentDevice = findDeviceByName(name);
         if (currentDevice != null) {
             currentDevice.setState(state);
@@ -484,7 +487,7 @@ public class SmartHomeHub {
      * @param brightness Brightness value (0-100)
      * @throws IllegalArgumentException If the device does not exist or is not a lighting device
      */
-    protected void controlDevice(String name, int brightness) {
+    protected void controlBrightness(String name, int brightness) {
         SmartDevice currentDevice = findDeviceByName(name);
         if (currentDevice != null && currentDevice instanceof SmartLight) {
             currentDevice.turnOn();
@@ -501,7 +504,7 @@ public class SmartHomeHub {
      * @param temperature Target temperature
      * @throws IllegalArgumentException If the device does not exist or is not a thermostat device
      */
-    protected void controlDevice(String name, Double temperature) {
+    protected void controlTemperature(String name, Double temperature) {
         SmartDevice currentDevice = findDeviceByName(name);
         if (currentDevice != null && currentDevice instanceof SmartThermostat) {
             currentDevice.turnOn();
@@ -520,7 +523,7 @@ public class SmartHomeHub {
      * @param state Target state
      * @throws IllegalArgumentException If the device group does not exist
      */
-    public void manageGroup(String name, String state) {
+    public void manageGroup(String name, DeviceState state) {
         DeviceGroup currentGroup = getGroupByName(name);
         if (currentGroup != null) {
             currentGroup.applyToAll(state);
@@ -536,10 +539,10 @@ public class SmartHomeHub {
      * @param temperature Target temperature
      * @throws IllegalArgumentException If the device group does not exist or the type does not match
      */
-    public void manageGroup(String name, Double temperature) {
+    public void manageGroupTemperature(String name, Double temperature) {
         DeviceGroup currentGroup = getGroupByName(name);
         if (currentGroup != null && currentGroup.getType().equals("Thermostat")) {
-            currentGroup.applyToAll("on");
+            currentGroup.applyToAll(DeviceState.ON);
             currentGroup.applyToAll(temperature);
         } else {
             throw new IllegalArgumentException("Thermostat group " + name + " not found");
@@ -553,10 +556,10 @@ public class SmartHomeHub {
      * @param brightness Brightness value (0-100)
      * @throws IllegalArgumentException If the device group does not exist or the type does not match
      */
-    public void manageGroup(String name, int brightness) {
+    public void manageGroupBrightness(String name, int brightness) {
         DeviceGroup currentGroup = getGroupByName(name);
         if (currentGroup != null && currentGroup.getType().equals("Light")) {
-            currentGroup.applyToAll("on");
+            currentGroup.applyToAll(DeviceState.ON);
             currentGroup.applyToAll(brightness);
         } else {
             throw new IllegalArgumentException("Light group " + name + " not found");

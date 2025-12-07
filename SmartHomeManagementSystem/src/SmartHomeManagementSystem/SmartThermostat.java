@@ -33,15 +33,15 @@ public class SmartThermostat extends SmartDevice {
      * @throws IllegalArgumentException If state is invalid
      */
     @Override
-    public void setState(String state) {
+    public void setState(DeviceState state) {
         if (state == null) {
             throw new IllegalArgumentException("State cannot be null");
         }
-        String lowerState = state.toLowerCase();
-        if (!legalStates.contains(lowerState)) {
-            throw new IllegalArgumentException("Invalid state for SmartThermostat: " + state + ". Must be 'on' or 'off'");
-        }
-        super.setState(lowerState);
+        //String lowerState = state.toLowerCase();
+        //if (!legalStates.contains(lowerState)) {
+        //    throw new IllegalArgumentException("Invalid state for SmartThermostat: " + state + ". Must be 'on' or 'off'");
+        //}
+        super.setState(state);
     }
 
     /**

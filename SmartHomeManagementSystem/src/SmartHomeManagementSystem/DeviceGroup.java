@@ -97,7 +97,7 @@ public class DeviceGroup {
      *
      * @param state The state to be applied
      */
-    public void applyToAll(String state) {
+    public void applyToAll(DeviceState state) {
         if (state == null) {
             throw new IllegalArgumentException("State cannot be null");
         }

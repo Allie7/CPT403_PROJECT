@@ -3,6 +3,12 @@ package SmartHomeManagementSystem;
 import java.util.ArrayList;
 import java.util.List;
 
+public enum DeviceState {
+    ON,
+    OFF,
+    LOCKED,
+    UNLOCKED
+}
 /**
  * Smart Device Abstract Base Class
  * All concrete smart device types (such as lights, thermostats, etc.) should inherit from this class.
@@ -17,15 +23,9 @@ public abstract class SmartDevice {
      * Device state enumeration to restrict valid states.
      * Currently supports ON/OFF for generic devices and LOCKED/UNLOCKED for locks.
      */
-    public enum DeviceState {
-        ON,
-        OFF,
-        LOCKED,
-        UNLOCKED
-    }
 
     // List of Valid States (Subclasses may override)
-    public static String[] legalStates = {"on", "off"};
+    // public static String[] legalStates = {"on", "off"};
 
     /**
      * Constructor
@@ -79,29 +79,11 @@ public abstract class SmartDevice {
      * @param state The state to set (on/off/locked/unlocked)
      * @throws IllegalArgumentException If the state is invalid
      */
-    public void setState(String state) {
+    public void setState(DeviceState state) {
         if (state == null) {
             throw new IllegalArgumentException("State cannot be null");
         }
-        String lowerState = state.toLowerCase();
-
-        // Convert the incoming string state into an enum value to ensure type safety.
-        switch (lowerState) {
-            case "on":
-                this.state = DeviceState.ON;
-                break;
-            case "off":
-                this.state = DeviceState.OFF;
-                break;
-            case "locked":
-                this.state = DeviceState.LOCKED;
-                break;
-            case "unlocked":
-                this.state = DeviceState.UNLOCKED;
-                break;
-            default:
-                throw new IllegalArgumentException("Unsupported device state: " + state);
-        }
+        this.state = state;
     }
 
     /**
