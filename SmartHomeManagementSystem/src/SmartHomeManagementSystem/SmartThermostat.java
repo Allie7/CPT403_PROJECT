@@ -14,7 +14,6 @@ public class SmartThermostat extends SmartDevice {
     private static final double maxTemperature = 40.0;
 
     private double temperature;
-    private static ArrayList<String> legalStates = new ArrayList<>(List.of("on","off"));
 
     /**
      * Constructor
