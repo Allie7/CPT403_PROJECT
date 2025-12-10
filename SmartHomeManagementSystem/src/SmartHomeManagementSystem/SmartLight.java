@@ -14,7 +14,6 @@ public class SmartLight extends SmartDevice {
     private static final int maxBrightness = 100;
 
     private int brightness; // Brightness 0-100
-    private static ArrayList<String> legalStates = new ArrayList<>(List.of("on","off"));
 
     /**
      * Constructor
