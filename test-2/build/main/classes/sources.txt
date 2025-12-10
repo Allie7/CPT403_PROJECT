@@ -1,0 +1,10 @@
+/Users/mac/Desktop/CPT403_PROJECT-main/SmartHomeManagementSystem/src/Main.java
+/Users/mac/Desktop/CPT403_PROJECT-main/SmartHomeManagementSystem/src/SmartHomeManagementSystem/DeviceGroup.java
+/Users/mac/Desktop/CPT403_PROJECT-main/SmartHomeManagementSystem/src/SmartHomeManagementSystem/Scene.java
+/Users/mac/Desktop/CPT403_PROJECT-main/SmartHomeManagementSystem/src/SmartHomeManagementSystem/SceneConfigExample.java
+/Users/mac/Desktop/CPT403_PROJECT-main/SmartHomeManagementSystem/src/SmartHomeManagementSystem/SmartDevice.java
+/Users/mac/Desktop/CPT403_PROJECT-main/SmartHomeManagementSystem/src/SmartHomeManagementSystem/SmartHomeHub.java
+/Users/mac/Desktop/CPT403_PROJECT-main/SmartHomeManagementSystem/src/SmartHomeManagementSystem/SmartLight.java
+/Users/mac/Desktop/CPT403_PROJECT-main/SmartHomeManagementSystem/src/SmartHomeManagementSystem/SmartLock.java
+/Users/mac/Desktop/CPT403_PROJECT-main/SmartHomeManagementSystem/src/SmartHomeManagementSystem/SmartThermostat.java
+/Users/mac/Desktop/CPT403_PROJECT-main/SmartHomeManagementSystem/src/SmartHomeManagementSystem/User.java
