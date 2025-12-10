@@ -3,12 +3,6 @@ package SmartHomeManagementSystem;
 import java.util.ArrayList;
 import java.util.List;
 
-public enum DeviceState {
-    ON,
-    OFF,
-    LOCKED,
-    UNLOCKED
-}
 /**
  * Smart Device Abstract Base Class
  * All concrete smart device types (such as lights, thermostats, etc.) should inherit from this class.

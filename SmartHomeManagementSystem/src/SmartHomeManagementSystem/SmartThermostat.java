@@ -49,7 +49,7 @@ public class SmartThermostat extends SmartDevice {
      */
     @Override
     public void turnOn() {
-        setState("on");
+        setState(DeviceState.ON);
     }
 
     /**
@@ -57,7 +57,7 @@ public class SmartThermostat extends SmartDevice {
      */
     @Override
     public void turnOff() {
-        setState("off");
+        setState(DeviceState.OFF);
     }
 
     /**

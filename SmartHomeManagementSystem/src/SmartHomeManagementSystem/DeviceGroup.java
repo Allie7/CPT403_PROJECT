@@ -116,7 +116,7 @@ public class DeviceGroup {
         if (!this.type.equals("Light")) {
             throw new IllegalArgumentException("Brightness can only be set for Light devices");
         }
-        applyToAll("on");
+        applyToAll(DeviceState.ON);
         for (SmartDevice device : devices) {
             if (device instanceof SmartLight) {
                 ((SmartLight) device).setBrightness(brightness);
@@ -134,7 +134,7 @@ public class DeviceGroup {
         if (!this.type.equals("Thermostat")) {
             throw new IllegalArgumentException("Temperature can only be set for Thermostat devices");
         }
-        applyToAll("on");
+        applyToAll(DeviceState.ON);
         for (SmartDevice device : devices) {
             if (device instanceof SmartThermostat) {
                 ((SmartThermostat) device).setTemperature(temperature);
