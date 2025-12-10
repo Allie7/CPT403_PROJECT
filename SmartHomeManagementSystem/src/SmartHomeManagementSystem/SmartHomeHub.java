@@ -324,75 +324,25 @@ public class SmartHomeHub {
         return null;
     }
 
-    //temp executeScene()
-    public void executeScene(String name) {
-        System.out.println("name = " + name);
-    }
     /**
      * Execute the scene with the specified name
-     * Locate devices based on scene configuration and set them to the target state
+     *
+     * Refactored in v2: Now delegates execution to the Scene object itself,
+     * following the principle that objects should be responsible for their own behavior.
+     * This improves cohesion and follows the Command Pattern concept.
      *
      * @param name scene name
+     * @throws IllegalArgumentException if the scene is not found
      */
-    /**
     public void executeScene(String name) {
         Scene scene = getSceneByName(name);
         if (scene != null) {
-            // Mark the scene as active
-            scene.setState("active");
-
-            // Iterate through all device configurations in the scene
-            Map<String, String> deviceStates = scene.getDeviceStates();
-            for (Map.Entry<String, String> entry : deviceStates.entrySet()) {
-                String deviceName = entry.getKey();
-                String targetValue = entry.getValue();
-
-                // Find devices through the Hub
-                SmartDevice device = findDeviceByName(deviceName);
-                if (device != null) {
-                    try {
-                        // Select the appropriate method based on the device type and target value type.
-                        if (device instanceof SmartLight) {
-                            // Lighting equipment: Attempt to parse as brightness values
-                            if (isNumeric(targetValue)) {
-                                int brightness = Integer.parseInt(targetValue);
-                                ((SmartLight) device).turnOn();
-                                ((SmartLight) device).setBrightness(brightness);
-                            } else {
-                                // If it's not a number, treat it as a state (on/off).
-                                device.setState(targetValue);
-                            }
-                        } else if (device instanceof SmartThermostat) {
-                            // Thermostat device: Attempt to interpret as a temperature value
-                            if (isNumeric(targetValue)) {
-                                double temperature = Double.parseDouble(targetValue);
-                                ((SmartThermostat) device).turnOn();
-                                ((SmartThermostat) device).setTemperature(temperature);
-                            } else {
-                                // If it's not a number, treat it as a state (on/off).
-                                device.setState(targetValue);
-                            }
-                        } else {
-                            // Other devices (e.g., door locks): Set the status directly.
-                            device.setState(targetValue);
-                        }
-                    } catch (RuntimeException e) {
-                        // If the status/value is invalid, log the error but continue executing other devices.
-                        System.err.println("Failed to set " + deviceName + " to " + targetValue + ": " + e.getMessage());
-                    }
-                } else {
-                    // Device does not exist. Log warning.
-                    System.err.println("Device not found in scene '" + name + "': " + deviceName);
-                }
-            }
-
-            // After execution completes, the status can be changed back to inactive (optional).
-            // scene.setState("inactive");
+            // Delegate execution to the Scene itself (Command Pattern)
+            scene.execute(this);
         } else {
             throw new IllegalArgumentException("Scene not found: " + name);
         }
     }
-    **/
 
     /**
      * Auxiliary Method: Determine if a string is numeric

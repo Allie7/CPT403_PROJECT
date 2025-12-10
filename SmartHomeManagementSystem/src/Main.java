@@ -20,6 +20,7 @@ public class Main {
         ArrayList<SmartDevice> devices2 = new ArrayList<>(List.of(airConditioner, airConditioner2));
         user.addDeviceToHub(upstairsLight);
         user.addDeviceToHub(gateLocker);
+        user.addDeviceToHub(gateLocker2);
         user.addDeviceToHub(airConditioner);
         user.viewDeviceState("air conditioner");
         user.controlTemperature("air conditioner", 30.0);
