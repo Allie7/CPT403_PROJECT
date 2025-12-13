@@ -23,7 +23,7 @@ public class SmartHomeHub {
      * @param devices List of devices
      * @param scenes  List of scenes
      */
-    protected SmartHomeHub(List<DeviceGroup> groups, List<SmartDevice> devices, List<Scene> scenes) {
+    public  SmartHomeHub(List<DeviceGroup> groups, List<SmartDevice> devices, List<Scene> scenes) {
         this.groups = groups != null ? new ArrayList<>(groups) : new ArrayList<>();
         this.devices = devices != null ? new ArrayList<>(devices) : new ArrayList<>();
         this.scenes = scenes != null ? new ArrayList<>(scenes) : new ArrayList<>();
@@ -33,7 +33,7 @@ public class SmartHomeHub {
      * Default constructor
      * Creates an empty smart home hub
      */
-    protected SmartHomeHub() {
+    public SmartHomeHub() {
         this.devices = new ArrayList<>();
         this.groups = new ArrayList<>();
         this.scenes = new ArrayList<>();
@@ -46,7 +46,7 @@ public class SmartHomeHub {
      *
      * @param name Device name
      */
-    protected void addDevice(String name) {
+    public void addDevice(String name) {
         SmartDevice device = findDeviceByName(name);
         if (device != null && !devices.contains(device)) {
             devices.add(device);
@@ -58,7 +58,7 @@ public class SmartHomeHub {
      *
      * @param device The device to add
      */
-    protected void addDevice(SmartDevice device) {
+    public void addDevice(SmartDevice device) {
         if (device != null && !devices.contains(device)) {
             devices.add(device);
         }
@@ -70,7 +70,7 @@ public class SmartHomeHub {
      *
      * @param name Device name
      */
-    protected void removeDevice(String name) {
+    public void removeDevice(String name) {
         SmartDevice device = findDeviceByName(name);
         if (device != null) {
             devices.remove(device);
@@ -87,7 +87,7 @@ public class SmartHomeHub {
      *
      * @param device The device to be removed
      */
-    protected void removeDevice(SmartDevice device) {
+    public void removeDevice(SmartDevice device) {
         if (device != null) {
             devices.remove(device);
         }
@@ -99,7 +99,7 @@ public class SmartHomeHub {
      * @param name Device name
      * @return Found device; returns null if not found
      */
-    protected SmartDevice findDeviceByName(String name) {
+    public SmartDevice findDeviceByName(String name) {
         for (SmartDevice device : devices) {
             if (device.getName().equals(name)) {
                 return device;
@@ -131,7 +131,7 @@ public class SmartHomeHub {
      *
      * @param group The device group to add
      */
-    protected void addGroup(DeviceGroup group) {
+    public void addGroup(DeviceGroup group) {
         if (group != null && !groups.contains(group)) {
             for (SmartDevice device : group.getDevices()) {
                 if (!devices.contains(device)) {
@@ -151,7 +151,7 @@ public class SmartHomeHub {
      * @throws IllegalArgumentException when group name exists and device names list are empty or when the device name
      *                                  listed is not in the hub
      **/
-    protected void groupDevices(String name, ArrayList<String> deviceNames) {
+    public void groupDevices(String name, ArrayList<String> deviceNames) {
         if (findGroupByName(name) != null) {
             throw new IllegalArgumentException("Group name exists");
         }
@@ -263,7 +263,7 @@ public class SmartHomeHub {
      *
      * @param groupName The name of the device group
      */
-    protected void removeGroup(String groupName) {
+    public void removeGroup(String groupName) {
         DeviceGroup group = getGroupByName(groupName);
         if (group != null) {
             groups.remove(group);
@@ -275,7 +275,7 @@ public class SmartHomeHub {
      *
      * @param group The device group to be removed
      */
-    protected void removeGroup(DeviceGroup group) {
+    public void removeGroup(DeviceGroup group) {
         if (group != null) {
             groups.remove(group);
         }
@@ -446,7 +446,7 @@ public class SmartHomeHub {
     /**
      * Display information for all devices
      */
-    protected void viewAllDevices() {
+    public void viewAllDevices() {
         for (SmartDevice device : devices) {
             System.out.println(device.toString());
         }
@@ -455,7 +455,7 @@ public class SmartHomeHub {
     /**
      * Display information for all device groups
      */
-    protected void viewAllGroups() {
+    public void viewAllGroups() {
         for (DeviceGroup group : groups) {
             System.out.println("Group " + group.getName() + " : " + group.toString());
         }
@@ -470,7 +470,7 @@ public class SmartHomeHub {
      * @param state Target state
      * @throws IllegalArgumentException If the device does not exist
      */
-    protected void controlDevice(String name,DeviceState state) {
+    public void controlDevice(String name,DeviceState state) {
 
         SmartDevice currentDevice = findDeviceByName(name);
         if (currentDevice != null) {
@@ -487,7 +487,7 @@ public class SmartHomeHub {
      * @param brightness Brightness value (0-100)
      * @throws IllegalArgumentException If the device does not exist or is not a lighting device
      */
-    protected void controlBrightness(String name, int brightness) {
+    public void controlBrightness(String name, int brightness) {
         SmartDevice currentDevice = findDeviceByName(name);
         if (currentDevice != null && currentDevice instanceof SmartLight) {
             currentDevice.turnOn();
@@ -504,7 +504,7 @@ public class SmartHomeHub {
      * @param temperature Target temperature
      * @throws IllegalArgumentException If the device does not exist or is not a thermostat device
      */
-    protected void controlTemperature(String name, Double temperature) {
+    public void controlTemperature(String name, Double temperature) {
         SmartDevice currentDevice = findDeviceByName(name);
         if (currentDevice != null && currentDevice instanceof SmartThermostat) {
             currentDevice.turnOn();
